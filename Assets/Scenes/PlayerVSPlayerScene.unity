@@ -130,6 +130,32 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 577793248730795379, guid: d404726d7d9b0fc4da678560193a78c8, type: 3}
+      propertyPath: m_text
+      value: 'Game Controls:
+
+        -Red Player starts first
+
+
+        -Left click
+        to select a pawn or Commander
+
+
+        -Right click to move the pawn/commander
+        to a new position
+
+
+        -Right click an enemy pawn when next to it to
+        attack it '
+      objectReference: {fileID: 0}
+    - target: {fileID: 577793248730795379, guid: d404726d7d9b0fc4da678560193a78c8, type: 3}
+      propertyPath: m_margin.w
+      value: -392.31027
+      objectReference: {fileID: 0}
+    - target: {fileID: 577793248730795380, guid: d404726d7d9b0fc4da678560193a78c8, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 232
+      objectReference: {fileID: 0}
     - target: {fileID: 577793248849848681, guid: d404726d7d9b0fc4da678560193a78c8, type: 3}
       propertyPath: m_Pivot.x
       value: 0

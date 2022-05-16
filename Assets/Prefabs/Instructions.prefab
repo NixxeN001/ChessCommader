@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 723, y: 261}
+  m_AnchoredPosition: {x: 710, y: 284}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &577793248730795378
@@ -65,20 +65,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Game Controls:
-
-    -Red Starts first
-
-
-    -Left click to select a pawn
-    or Commander
-
-
-    -Right click to move the pawn/commander to a new position
-
-
-    -Right
-    click an enemy pawn when next to it to attack it '
+  m_text: "Game Controls:\n-Red Player starts first each game\n\n-Left click to select
+    a Pawn or Commander \n\n-After selecting a Pawn or Commandar. Right click to
+    move the pawn/commander to a new position\n\n-Right click on an enemy Pawn when
+    next to it to attack it. This destroys the Pawn from the board"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -105,8 +95,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 30
+  m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -141,7 +131,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -141.75632, y: 0, z: -118.34728, w: -566.82074}
+  m_margin: {x: -141.75632, y: 0, z: -118.34728, w: -534.17676}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -323,7 +313,11 @@ MonoBehaviour:
 
 
     -Commanders can move
-    anywhere on the board ONCE per game'
+    anywhere on the board ONCE per game
+
+
+    - The game ends when the Commader of
+    a player dies. The player who''s Commader has died, is the loser'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -350,8 +344,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 30
+  m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -386,7 +380,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -63.349113, y: 0, z: -212.85329, w: -509.32742}
+  m_margin: {x: -63.349113, y: 0, z: -212.85329, w: -486.7321}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

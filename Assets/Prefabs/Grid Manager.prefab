@@ -63,6 +63,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 900e834fda6588f43b3241de7d484738, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UI_system: {fileID: 11400000, guid: 5ee04319499fa0d428a71d8bfc71318d, type: 2}
   pawnsPerPlayer: 3
   pawnPrefab: {fileID: 1954193111295259277, guid: f6aef8e3887b9e645a41b606fd270005, type: 3}
   commanderPrefab: {fileID: 8665962927931705399, guid: 8067224774a03634db0c9a4a37744f62, type: 3}

@@ -41,10 +41,19 @@ public class GridManager : MonoBehaviour
     /// Returns empty tile that is "walkable" and unoccupied
     /// </summary>
     /// <returns></returns>
-    public Tile RandomTile()
+    public Tile RandomTile(bool occupieOnGet = false)
     {
-
-        return tileArray[UnityEngine.Random.Range(0, gridSize.x), UnityEngine.Random.Range(0, gridSize.y)];
+        Tile currentSelction = tileArray[UnityEngine.Random.Range(0, gridSize.x), UnityEngine.Random.Range(0, gridSize.y)];
+        while (currentSelction.IsOccupied)
+        {
+            currentSelction = tileArray[UnityEngine.Random.Range(0, gridSize.x), UnityEngine.Random.Range(0, gridSize.y)];
+        }
+        if (occupieOnGet)
+        {
+            currentSelction.IsOccupied = true;
+        }
+        return currentSelction;
+        //  return tileArray[UnityEngine.Random.Range(0, gridSize.x), UnityEngine.Random.Range(0, gridSize.y)];
 
     }
 

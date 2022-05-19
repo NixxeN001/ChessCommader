@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] General_UI_System UI_system;
+
+
     [SerializeField] private byte pawnsPerPlayer;
     [SerializeField] private GameObject pawnPrefab;
     [SerializeField] private GameObject commanderPrefab;
@@ -26,6 +29,8 @@ public class GameManager : MonoBehaviour
         {
             instance = this;
         }
+
+        UI_system?.onTurnEndRequest.AddListener(EndTurn);
     }
 
     public void Start()
@@ -60,16 +65,19 @@ public class GameManager : MonoBehaviour
                 GameObject obj = Instantiate(pawnPrefab);
                 Pawn pawn = obj.GetComponent<Pawn>();
 
-                pawn.CurrentTile = gridManager.RandomTile();
+                
+                pawn.CurrentTile = gridManager.RandomTile(true);
                 pawn.Owner = (byte)p;
                 pawn.OnPawnDeath.AddListener(RemovePawn);
                 pawnsInPlay[p - 1].Add(pawn);
+
+
 
             }
         }
         GameObject c1 = Instantiate(commanderPrefab);
         Commander tpm1 = c1.GetComponent<Commander>();
-        tpm1.CurrentTile= gridManager.RandomTile();
+        tpm1.CurrentTile= gridManager.RandomTile(true);
         tpm1.Owner = 1;
         tpm1.OnCommaderDeath.AddListener(EndGame);
         commanders[0] = tpm1;
@@ -78,7 +86,7 @@ public class GameManager : MonoBehaviour
 
         GameObject c2 = Instantiate(commanderPrefab);
         tpm1 = c2.GetComponent<Commander>();
-        tpm1.CurrentTile = gridManager.RandomTile();
+        tpm1.CurrentTile = gridManager.RandomTile(true);
         tpm1.Owner = 2;
         tpm1.OnCommaderDeath.AddListener(EndGame);
         commanders[1] = tpm1;
@@ -118,7 +126,9 @@ public class GameManager : MonoBehaviour
         }
 
         commanders[currentPlayer-1].AttacksLeft = 0;
-       
+
+
+        UI_system?.onTurnChange.Invoke(currentPlayer);
 
     }
 }

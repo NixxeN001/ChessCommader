@@ -109,10 +109,11 @@ public class GridManager : MonoBehaviour
 
 
 
-
+[Serializable]
 public class Tile
 {
-    private GameObject obj;
+
+    [NonSerialized] private GameObject obj;
     public TileType type;
     uint x, y;
     Vector2 worldPos;

@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
             instance = this;
         }
 
+
         UI_system?.onTurnEndRequest.AddListener(EndTurn);
     }
 
@@ -129,6 +130,7 @@ public class GameManager : MonoBehaviour
 
 
         UI_system?.onTurnChange.Invoke(currentPlayer);
+        AI_State_Manager.instance.CurrentStateToNode(GridManager.instance.TileArray);
 
     }
 }

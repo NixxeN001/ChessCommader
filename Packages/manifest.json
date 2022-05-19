@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.simplenodes": "file:D:/VEGA_WORK/YEAR 4 (GADE only)/Semester 1/com.simplenodes",
     "com.unity.2d.animation": "5.1.1",
     "com.unity.2d.pixel-perfect": "4.0.1",
     "com.unity.2d.psdimporter": "4.2.0",

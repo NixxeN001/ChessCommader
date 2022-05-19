@@ -510,7 +510,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7025850118902560182, guid: ad7c717f55de3d84c88b31bba7e00a3a, type: 3}
       propertyPath: m_Name
-      value: Grid Manager
+      value: Game Manager
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad7c717f55de3d84c88b31bba7e00a3a, type: 3}
+--- !u!1 &7025850118847445748 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7025850118902560182, guid: ad7c717f55de3d84c88b31bba7e00a3a, type: 3}
+  m_PrefabInstance: {fileID: 7025850118847445747}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7025850118847445749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7025850118847445748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 438006843abe0fe42b20d786a64f0a91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  readFromDiskOnLoad: 0

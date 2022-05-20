@@ -23,6 +23,27 @@ public class GameManager : MonoBehaviour
 
     private Commander[] commanders;
 
+    public byte GetOwneronTile(Tile tile)
+    {
+        foreach (Pawn pm in pawnsInPlay[0])
+        {
+            if (pm.CurrentTile==tile)
+            {
+                return pm.Owner;
+            }
+        }
+
+        foreach (Pawn pm in pawnsInPlay[1])
+        {
+            if (pm.CurrentTile == tile)
+            {
+                return pm.Owner;
+            }
+        }
+
+        throw new System.Exception();
+    }
+
     private void Awake()
     {
         if (instance == null)

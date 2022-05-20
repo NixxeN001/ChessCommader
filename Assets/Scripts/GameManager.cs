@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     public byte currentPlayer = 1;
 
     private Commander[] commanders;
+    public Commander[] Commanders => commanders;
 
     public byte GetOwneronTile(Tile tile)
     {

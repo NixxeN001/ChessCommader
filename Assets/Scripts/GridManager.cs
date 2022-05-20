@@ -36,6 +36,7 @@ public class GridManager : MonoBehaviour
         GenerateMap();
     }
 
+   
 
     /// <summary>
     /// Returns empty tile that is "walkable" and unoccupied
@@ -116,6 +117,9 @@ public class Tile
     [NonSerialized] private GameObject obj;
     public TileType type;
     uint x, y;
+    public int X => (int)x;
+    public int Y => (int)y;
+
     Vector2 worldPos;
     public Tile Top, Bottom, Right, Left;
     public bool IsOccupied = false;

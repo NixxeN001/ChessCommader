@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
     {
         foreach (Pawn pm in pawnsInPlay[0])
         {
-            if (pm.CurrentTile==tile)
+            if (pm.CurrentTile == tile)
             {
                 return pm.Owner;
             }
@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        throw new System.Exception();
+        return byte.MaxValue;
     }
 
     private void Awake()
@@ -87,7 +87,7 @@ public class GameManager : MonoBehaviour
                 GameObject obj = Instantiate(pawnPrefab);
                 Pawn pawn = obj.GetComponent<Pawn>();
 
-                
+
                 pawn.CurrentTile = gridManager.RandomTile(true);
                 pawn.Owner = (byte)p;
                 pawn.OnPawnDeath.AddListener(RemovePawn);
@@ -99,7 +99,7 @@ public class GameManager : MonoBehaviour
         }
         GameObject c1 = Instantiate(commanderPrefab);
         Commander tpm1 = c1.GetComponent<Commander>();
-        tpm1.CurrentTile= gridManager.RandomTile(true);
+        tpm1.CurrentTile = gridManager.RandomTile(true);
         tpm1.Owner = 1;
         tpm1.OnCommaderDeath.AddListener(EndGame);
         commanders[0] = tpm1;
@@ -141,17 +141,18 @@ public class GameManager : MonoBehaviour
         currentPlayer = currentPlayer == 1 ? (byte)2 : (byte)1;
         currentFocus = null;
 
-        foreach (Pawn po in pawnsInPlay[currentPlayer-1])
+        foreach (Pawn po in pawnsInPlay[currentPlayer - 1])
         {
             po.MoveDistance = 1;
             po.AttacksLeft = 1;
         }
 
-        commanders[currentPlayer-1].AttacksLeft = 0;
+        commanders[currentPlayer - 1].AttacksLeft = 0;
 
 
         UI_system?.onTurnChange.Invoke(currentPlayer);
-        AI_State_Manager.instance.CurrentStateToNode(GridManager.instance.TileArray);
+         Ai_Vision_Factory.instance.RegenVision(gridManager.TileArray);
+        AI_State_Manager.instance.TestingLoop();
 
     }
 }

@@ -66,11 +66,11 @@
         "Owner": 255
       },
       {
-        "IsOccupied": true,
+        "IsOccupied": false,
         "UnitType": 0,
         "X": 0,
         "Y": 9,
-        "Owner": 1
+        "Owner": 255
       }
     ],
     [
@@ -117,11 +117,11 @@
         "Owner": 255
       },
       {
-        "IsOccupied": true,
+        "IsOccupied": false,
         "UnitType": 0,
         "X": 1,
         "Y": 6,
-        "Owner": 1
+        "Owner": 255
       },
       {
         "IsOccupied": false,
@@ -138,7 +138,7 @@
         "Owner": 255
       },
       {
-        "IsOccupied": true,
+        "IsOccupied": false,
         "UnitType": 0,
         "X": 1,
         "Y": 9,
@@ -226,39 +226,39 @@
         "Owner": 255
       },
       {
-        "IsOccupied": false,
+        "IsOccupied": true,
         "UnitType": 0,
         "X": 3,
         "Y": 1,
-        "Owner": 255
-      },
-      {
-        "IsOccupied": true,
-        "UnitType": 0,
-        "X": 3,
-        "Y": 2,
-        "Owner": 1
-      },
-      {
-        "IsOccupied": true,
-        "UnitType": 0,
-        "X": 3,
-        "Y": 3,
         "Owner": 2
       },
       {
         "IsOccupied": false,
         "UnitType": 0,
         "X": 3,
-        "Y": 4,
+        "Y": 2,
         "Owner": 255
       },
       {
         "IsOccupied": false,
         "UnitType": 0,
         "X": 3,
-        "Y": 5,
+        "Y": 3,
         "Owner": 255
+      },
+      {
+        "IsOccupied": false,
+        "UnitType": 0,
+        "X": 3,
+        "Y": 4,
+        "Owner": 255
+      },
+      {
+        "IsOccupied": true,
+        "UnitType": 0,
+        "X": 3,
+        "Y": 5,
+        "Owner": 1
       },
       {
         "IsOccupied": false,
@@ -367,31 +367,31 @@
         "UnitType": 0,
         "X": 5,
         "Y": 0,
-        "Owner": 255
-      },
-      {
-        "IsOccupied": false,
-        "UnitType": 0,
-        "X": 5,
-        "Y": 1,
         "Owner": 255
       },
       {
         "IsOccupied": true,
         "UnitType": 0,
         "X": 5,
-        "Y": 2,
-        "Owner": 2
-      },
-      {
-        "IsOccupied": true,
-        "UnitType": 0,
-        "X": 5,
-        "Y": 3,
+        "Y": 1,
         "Owner": 2
       },
       {
         "IsOccupied": false,
+        "UnitType": 0,
+        "X": 5,
+        "Y": 2,
+        "Owner": 255
+      },
+      {
+        "IsOccupied": false,
+        "UnitType": 0,
+        "X": 5,
+        "Y": 3,
+        "Owner": 255
+      },
+      {
+        "IsOccupied": true,
         "UnitType": 0,
         "X": 5,
         "Y": 4,
@@ -419,11 +419,11 @@
         "Owner": 255
       },
       {
-        "IsOccupied": false,
+        "IsOccupied": true,
         "UnitType": 0,
         "X": 5,
         "Y": 8,
-        "Owner": 255
+        "Owner": 1
       },
       {
         "IsOccupied": false,
@@ -435,11 +435,11 @@
     ],
     [
       {
-        "IsOccupied": false,
+        "IsOccupied": true,
         "UnitType": 0,
         "X": 6,
         "Y": 0,
-        "Owner": 255
+        "Owner": 2
       },
       {
         "IsOccupied": false,
@@ -498,11 +498,11 @@
         "Owner": 255
       },
       {
-        "IsOccupied": false,
+        "IsOccupied": true,
         "UnitType": 0,
         "X": 6,
         "Y": 9,
-        "Owner": 255
+        "Owner": 1
       }
     ],
     [
@@ -723,5 +723,6 @@
     ]
   ],
   "Out": [],
-  "In": []
+  "In": [],
+  "weight": 0.0
 }

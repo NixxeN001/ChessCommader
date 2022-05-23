@@ -2,6 +2,7 @@ using SimpleNodes;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 
@@ -9,10 +10,11 @@ public class Ai_Vision_Factory : MonoBehaviour
 {
 
     public static Ai_Vision_Factory instance;
-    private List<Node<Ai_Vision_Tile[,]>> DiskNodes  = new List<Node<Ai_Vision_Tile[,]>>();
+    private List<Node<Ai_Vision_Tile[,]>> DiskNodes = new List<Node<Ai_Vision_Tile[,]>>();
     public Ai_Vision_Tile[,] vision_field;
     public Node<Ai_Vision_Tile[,]> latestGen;
-    private int lastPawnX = 0, lastPawnY = 0;
+    private int lastPIndex = 0;
+    int currentPIndex = 0;
     private void Awake()
     {
         if (instance == null)
@@ -36,20 +38,44 @@ public class Ai_Vision_Factory : MonoBehaviour
     }
 
 
-    public Tuple<int, int> GetNextPawn()
+    public Tuple<int, int> GetNextPawn(Ai_Vision_Tile[,] vision, int i)
     {
-        for (int y = lastPawnY; y < vision_field.GetLength(1); y++)
+        
+       
+        try
         {
-            for (int x = lastPawnX; x < vision_field.GetLength(0); x++)
-            {
-                if (vision_field[x, y].IsOccupied && vision_field[x, y].Owner == 2)
-                {
-                    return new Tuple<int, int>(x, y);
-                }
-            }
+            int x = GameManager.instance.pawnsInPlay[1][i].CurrentTile.X;
+            int y = GameManager.instance.pawnsInPlay[1][i].CurrentTile.Y;
+            return new Tuple<int, int>(x, y);
         }
+        catch (Exception e)
+        {
 
-        return new Tuple<int, int>(int.MaxValue, int.MaxValue);
+            return null;
+        }
+        /*
+                for (int y = 0; y < vision.GetLength(1); y++)
+                {
+                    for (int x = 0; x < vision.GetLength(0); x++)
+                    {
+                       // Debug.Log(GameManager.instance.pawnsInPlay[1].Count);
+                        if (vision[x, y].IsOccupied && vision[x, y].Owner == 2 && currentPIndex <= GameManager.instance.pawnsInPlay[1].Count)
+                        {
+                            currentPIndex += 1;
+                            // Debug.Log($"Checking Pawn at: {x}:{y}- CI: {currentPIndex} - PI:{lastPIndex}");
+                            if (currentPIndex >= lastPIndex)
+                            {
+                               // Debug.Log($"Found Pawn at:[{x}:{y}] - current Index: {currentPIndex} - prev Index:{lastPIndex}");
+                                lastPIndex++;
+
+                                return new Tuple<int, int>(x, y);
+                            }
+
+                        }
+                    }
+                }*/
+
+        
     }
 
     public Tuple<int, int, int> GetEnemyCommanderDist(int x, int y, Ai_Vision_Tile[,] tilemap)
@@ -109,14 +135,10 @@ public class Ai_Vision_Factory : MonoBehaviour
 
     }
 
-    public async void RegenVision(Tile[,] tilemap)
+    public async Task RegenVision(Tile[,] tilemap)
     {
-        lastPawnX = 0;
-        lastPawnY = 0;
-
-
-
-
+        currentPIndex = 0;
+        lastPIndex = 0;
 
         int width = tilemap.GetLength(0);
         int height = tilemap.GetLength(1);
@@ -134,7 +156,7 @@ public class Ai_Vision_Factory : MonoBehaviour
         }
 
         latestGen = new Node<Ai_Vision_Tile[,]>(vision_field);
-        
+
         await latestGen.AppendCurrentNodeStateToDiskFileAsync();
     }
 
@@ -144,7 +166,7 @@ public class Ai_Vision_Factory : MonoBehaviour
         {
             if (node.Data == arg)
             {
-                if (node.Out.Count>0)
+                if (node.Out.Count > 0)
                 {
                     return node.Out[0].Data;
                 }

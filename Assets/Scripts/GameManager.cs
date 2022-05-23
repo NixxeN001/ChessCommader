@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
 
     [HideInInspector] public IPawnable currentFocus;
 
-    List<Pawn>[] pawnsInPlay;
+    public List<Pawn>[] pawnsInPlay;
 
     public byte currentPlayer = 1;
 
@@ -135,7 +135,7 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    public void EndTurn()
+    public async void EndTurn()
     {
 
 
@@ -152,7 +152,7 @@ public class GameManager : MonoBehaviour
 
 
         UI_system?.onTurnChange.Invoke(currentPlayer);
-         Ai_Vision_Factory.instance.RegenVision(gridManager.TileArray);
+        await Ai_Vision_Factory.instance.RegenVision(gridManager.TileArray);
         AI_State_Manager.instance.TestingLoop();
 
     }

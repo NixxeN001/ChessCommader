@@ -24,66 +24,66 @@
         "Owner": 255
       },
       {
-        "IsOccupied": true,
+        "IsOccupied": false,
         "UnitType": 0,
         "X": 0,
         "Y": 3,
+        "Owner": 255
+      },
+      {
+        "IsOccupied": false,
+        "UnitType": 0,
+        "X": 0,
+        "Y": 4,
+        "Owner": 255
+      },
+      {
+        "IsOccupied": false,
+        "UnitType": 0,
+        "X": 0,
+        "Y": 5,
+        "Owner": 255
+      },
+      {
+        "IsOccupied": false,
+        "UnitType": 0,
+        "X": 0,
+        "Y": 6,
+        "Owner": 255
+      },
+      {
+        "IsOccupied": false,
+        "UnitType": 0,
+        "X": 0,
+        "Y": 7,
+        "Owner": 255
+      },
+      {
+        "IsOccupied": false,
+        "UnitType": 0,
+        "X": 0,
+        "Y": 8,
+        "Owner": 255
+      },
+      {
+        "IsOccupied": false,
+        "UnitType": 0,
+        "X": 0,
+        "Y": 9,
+        "Owner": 255
+      }
+    ],
+    [
+      {
+        "IsOccupied": true,
+        "UnitType": 0,
+        "X": 1,
+        "Y": 0,
         "Owner": 2
       },
       {
         "IsOccupied": false,
         "UnitType": 0,
-        "X": 0,
-        "Y": 4,
-        "Owner": 255
-      },
-      {
-        "IsOccupied": false,
-        "UnitType": 0,
-        "X": 0,
-        "Y": 5,
-        "Owner": 255
-      },
-      {
-        "IsOccupied": false,
-        "UnitType": 0,
-        "X": 0,
-        "Y": 6,
-        "Owner": 255
-      },
-      {
-        "IsOccupied": false,
-        "UnitType": 0,
-        "X": 0,
-        "Y": 7,
-        "Owner": 255
-      },
-      {
-        "IsOccupied": false,
-        "UnitType": 0,
-        "X": 0,
-        "Y": 8,
-        "Owner": 255
-      },
-      {
-        "IsOccupied": false,
-        "UnitType": 0,
-        "X": 0,
-        "Y": 9,
-        "Owner": 255
-      }
-    ],
-    [
-      {
-        "IsOccupied": false,
-        "UnitType": 0,
-        "X": 1,
-        "Y": 0,
-        "Owner": 255
-      },
-      {
-        "IsOccupied": false,
-        "UnitType": 0,
         "X": 1,
         "Y": 1,
         "Owner": 255
@@ -96,11 +96,11 @@
         "Owner": 255
       },
       {
-        "IsOccupied": false,
+        "IsOccupied": true,
         "UnitType": 0,
         "X": 1,
         "Y": 3,
-        "Owner": 255
+        "Owner": 1
       },
       {
         "IsOccupied": false,
@@ -261,7 +261,7 @@
         "Owner": 255
       },
       {
-        "IsOccupied": false,
+        "IsOccupied": true,
         "UnitType": 0,
         "X": 3,
         "Y": 6,
@@ -295,33 +295,33 @@
         "UnitType": 0,
         "X": 4,
         "Y": 0,
+        "Owner": 255
+      },
+      {
+        "IsOccupied": false,
+        "UnitType": 0,
+        "X": 4,
+        "Y": 1,
+        "Owner": 255
+      },
+      {
+        "IsOccupied": false,
+        "UnitType": 0,
+        "X": 4,
+        "Y": 2,
+        "Owner": 255
+      },
+      {
+        "IsOccupied": false,
+        "UnitType": 0,
+        "X": 4,
+        "Y": 3,
         "Owner": 255
       },
       {
         "IsOccupied": true,
         "UnitType": 0,
         "X": 4,
-        "Y": 1,
-        "Owner": 2
-      },
-      {
-        "IsOccupied": false,
-        "UnitType": 0,
-        "X": 4,
-        "Y": 2,
-        "Owner": 255
-      },
-      {
-        "IsOccupied": false,
-        "UnitType": 0,
-        "X": 4,
-        "Y": 3,
-        "Owner": 255
-      },
-      {
-        "IsOccupied": false,
-        "UnitType": 0,
-        "X": 4,
         "Y": 4,
         "Owner": 255
       },
@@ -347,16 +347,160 @@
         "Owner": 255
       },
       {
-        "IsOccupied": true,
+        "IsOccupied": false,
         "UnitType": 0,
         "X": 4,
+        "Y": 8,
+        "Owner": 255
+      },
+      {
+        "IsOccupied": false,
+        "UnitType": 0,
+        "X": 4,
+        "Y": 9,
+        "Owner": 255
+      }
+    ],
+    [
+      {
+        "IsOccupied": false,
+        "UnitType": 0,
+        "X": 5,
+        "Y": 0,
+        "Owner": 255
+      },
+      {
+        "IsOccupied": false,
+        "UnitType": 0,
+        "X": 5,
+        "Y": 1,
+        "Owner": 255
+      },
+      {
+        "IsOccupied": false,
+        "UnitType": 0,
+        "X": 5,
+        "Y": 2,
+        "Owner": 255
+      },
+      {
+        "IsOccupied": false,
+        "UnitType": 0,
+        "X": 5,
+        "Y": 3,
+        "Owner": 255
+      },
+      {
+        "IsOccupied": false,
+        "UnitType": 0,
+        "X": 5,
+        "Y": 4,
+        "Owner": 255
+      },
+      {
+        "IsOccupied": false,
+        "UnitType": 0,
+        "X": 5,
+        "Y": 5,
+        "Owner": 255
+      },
+      {
+        "IsOccupied": false,
+        "UnitType": 0,
+        "X": 5,
+        "Y": 6,
+        "Owner": 255
+      },
+      {
+        "IsOccupied": false,
+        "UnitType": 0,
+        "X": 5,
+        "Y": 7,
+        "Owner": 255
+      },
+      {
+        "IsOccupied": false,
+        "UnitType": 0,
+        "X": 5,
+        "Y": 8,
+        "Owner": 255
+      },
+      {
+        "IsOccupied": false,
+        "UnitType": 0,
+        "X": 5,
+        "Y": 9,
+        "Owner": 255
+      }
+    ],
+    [
+      {
+        "IsOccupied": false,
+        "UnitType": 0,
+        "X": 6,
+        "Y": 0,
+        "Owner": 255
+      },
+      {
+        "IsOccupied": false,
+        "UnitType": 0,
+        "X": 6,
+        "Y": 1,
+        "Owner": 255
+      },
+      {
+        "IsOccupied": false,
+        "UnitType": 0,
+        "X": 6,
+        "Y": 2,
+        "Owner": 255
+      },
+      {
+        "IsOccupied": false,
+        "UnitType": 0,
+        "X": 6,
+        "Y": 3,
+        "Owner": 255
+      },
+      {
+        "IsOccupied": false,
+        "UnitType": 0,
+        "X": 6,
+        "Y": 4,
+        "Owner": 255
+      },
+      {
+        "IsOccupied": false,
+        "UnitType": 0,
+        "X": 6,
+        "Y": 5,
+        "Owner": 255
+      },
+      {
+        "IsOccupied": false,
+        "UnitType": 0,
+        "X": 6,
+        "Y": 6,
+        "Owner": 255
+      },
+      {
+        "IsOccupied": false,
+        "UnitType": 0,
+        "X": 6,
+        "Y": 7,
+        "Owner": 255
+      },
+      {
+        "IsOccupied": true,
+        "UnitType": 0,
+        "X": 6,
         "Y": 8,
         "Owner": 1
       },
       {
         "IsOccupied": false,
         "UnitType": 0,
-        "X": 4,
+        "X": 6,
         "Y": 9,
         "Owner": 255
       }
@@ -365,70 +509,142 @@
       {
         "IsOccupied": false,
         "UnitType": 0,
-        "X": 5,
+        "X": 7,
         "Y": 0,
         "Owner": 255
       },
       {
         "IsOccupied": false,
         "UnitType": 0,
-        "X": 5,
+        "X": 7,
         "Y": 1,
         "Owner": 255
       },
       {
         "IsOccupied": false,
         "UnitType": 0,
-        "X": 5,
+        "X": 7,
         "Y": 2,
         "Owner": 255
       },
       {
         "IsOccupied": false,
         "UnitType": 0,
-        "X": 5,
+        "X": 7,
         "Y": 3,
         "Owner": 255
       },
       {
         "IsOccupied": false,
         "UnitType": 0,
-        "X": 5,
+        "X": 7,
         "Y": 4,
         "Owner": 255
       },
       {
-        "IsOccupied": true,
+        "IsOccupied": false,
         "UnitType": 0,
-        "X": 5,
+        "X": 7,
         "Y": 5,
         "Owner": 255
       },
       {
         "IsOccupied": false,
         "UnitType": 0,
-        "X": 5,
+        "X": 7,
         "Y": 6,
         "Owner": 255
       },
       {
         "IsOccupied": false,
         "UnitType": 0,
-        "X": 5,
+        "X": 7,
         "Y": 7,
         "Owner": 255
       },
       {
         "IsOccupied": false,
         "UnitType": 0,
-        "X": 5,
+        "X": 7,
+        "Y": 8,
+        "Owner": 255
+      },
+      {
+        "IsOccupied": false,
+        "UnitType": 0,
+        "X": 7,
+        "Y": 9,
+        "Owner": 255
+      }
+    ],
+    [
+      {
+        "IsOccupied": false,
+        "UnitType": 0,
+        "X": 8,
+        "Y": 0,
+        "Owner": 255
+      },
+      {
+        "IsOccupied": false,
+        "UnitType": 0,
+        "X": 8,
+        "Y": 1,
+        "Owner": 255
+      },
+      {
+        "IsOccupied": false,
+        "UnitType": 0,
+        "X": 8,
+        "Y": 2,
+        "Owner": 255
+      },
+      {
+        "IsOccupied": false,
+        "UnitType": 0,
+        "X": 8,
+        "Y": 3,
+        "Owner": 255
+      },
+      {
+        "IsOccupied": false,
+        "UnitType": 0,
+        "X": 8,
+        "Y": 4,
+        "Owner": 255
+      },
+      {
+        "IsOccupied": false,
+        "UnitType": 0,
+        "X": 8,
+        "Y": 5,
+        "Owner": 255
+      },
+      {
+        "IsOccupied": false,
+        "UnitType": 0,
+        "X": 8,
+        "Y": 6,
+        "Owner": 255
+      },
+      {
+        "IsOccupied": false,
+        "UnitType": 0,
+        "X": 8,
+        "Y": 7,
+        "Owner": 255
+      },
+      {
+        "IsOccupied": false,
+        "UnitType": 0,
+        "X": 8,
         "Y": 8,
         "Owner": 255
       },
       {
         "IsOccupied": true,
         "UnitType": 0,
-        "X": 5,
+        "X": 8,
         "Y": 9,
         "Owner": 2
       }
@@ -437,250 +653,34 @@
       {
         "IsOccupied": false,
         "UnitType": 0,
-        "X": 6,
+        "X": 9,
         "Y": 0,
         "Owner": 255
       },
       {
         "IsOccupied": false,
         "UnitType": 0,
-        "X": 6,
+        "X": 9,
         "Y": 1,
         "Owner": 255
       },
       {
         "IsOccupied": false,
         "UnitType": 0,
-        "X": 6,
+        "X": 9,
         "Y": 2,
-        "Owner": 255
-      },
-      {
-        "IsOccupied": false,
-        "UnitType": 0,
-        "X": 6,
-        "Y": 3,
-        "Owner": 255
-      },
-      {
-        "IsOccupied": false,
-        "UnitType": 0,
-        "X": 6,
-        "Y": 4,
-        "Owner": 255
-      },
-      {
-        "IsOccupied": false,
-        "UnitType": 0,
-        "X": 6,
-        "Y": 5,
-        "Owner": 255
-      },
-      {
-        "IsOccupied": false,
-        "UnitType": 0,
-        "X": 6,
-        "Y": 6,
-        "Owner": 255
-      },
-      {
-        "IsOccupied": false,
-        "UnitType": 0,
-        "X": 6,
-        "Y": 7,
-        "Owner": 255
-      },
-      {
-        "IsOccupied": false,
-        "UnitType": 0,
-        "X": 6,
-        "Y": 8,
-        "Owner": 255
-      },
-      {
-        "IsOccupied": false,
-        "UnitType": 0,
-        "X": 6,
-        "Y": 9,
-        "Owner": 255
-      }
-    ],
-    [
-      {
-        "IsOccupied": false,
-        "UnitType": 0,
-        "X": 7,
-        "Y": 0,
-        "Owner": 255
-      },
-      {
-        "IsOccupied": false,
-        "UnitType": 0,
-        "X": 7,
-        "Y": 1,
-        "Owner": 255
-      },
-      {
-        "IsOccupied": false,
-        "UnitType": 0,
-        "X": 7,
-        "Y": 2,
-        "Owner": 255
-      },
-      {
-        "IsOccupied": false,
-        "UnitType": 0,
-        "X": 7,
-        "Y": 3,
-        "Owner": 255
-      },
-      {
-        "IsOccupied": false,
-        "UnitType": 0,
-        "X": 7,
-        "Y": 4,
-        "Owner": 255
-      },
-      {
-        "IsOccupied": false,
-        "UnitType": 0,
-        "X": 7,
-        "Y": 5,
-        "Owner": 255
-      },
-      {
-        "IsOccupied": false,
-        "UnitType": 0,
-        "X": 7,
-        "Y": 6,
-        "Owner": 255
-      },
-      {
-        "IsOccupied": false,
-        "UnitType": 0,
-        "X": 7,
-        "Y": 7,
-        "Owner": 255
-      },
-      {
-        "IsOccupied": false,
-        "UnitType": 0,
-        "X": 7,
-        "Y": 8,
-        "Owner": 255
-      },
-      {
-        "IsOccupied": false,
-        "UnitType": 0,
-        "X": 7,
-        "Y": 9,
-        "Owner": 255
-      }
-    ],
-    [
-      {
-        "IsOccupied": false,
-        "UnitType": 0,
-        "X": 8,
-        "Y": 0,
-        "Owner": 255
-      },
-      {
-        "IsOccupied": false,
-        "UnitType": 0,
-        "X": 8,
-        "Y": 1,
-        "Owner": 255
-      },
-      {
-        "IsOccupied": false,
-        "UnitType": 0,
-        "X": 8,
-        "Y": 2,
-        "Owner": 255
-      },
-      {
-        "IsOccupied": false,
-        "UnitType": 0,
-        "X": 8,
-        "Y": 3,
         "Owner": 255
       },
       {
         "IsOccupied": true,
         "UnitType": 0,
-        "X": 8,
-        "Y": 4,
-        "Owner": 255
-      },
-      {
-        "IsOccupied": true,
-        "UnitType": 0,
-        "X": 8,
-        "Y": 5,
+        "X": 9,
+        "Y": 3,
         "Owner": 1
       },
       {
         "IsOccupied": false,
         "UnitType": 0,
-        "X": 8,
-        "Y": 6,
-        "Owner": 255
-      },
-      {
-        "IsOccupied": true,
-        "UnitType": 0,
-        "X": 8,
-        "Y": 7,
-        "Owner": 1
-      },
-      {
-        "IsOccupied": false,
-        "UnitType": 0,
-        "X": 8,
-        "Y": 8,
-        "Owner": 255
-      },
-      {
-        "IsOccupied": false,
-        "UnitType": 0,
-        "X": 8,
-        "Y": 9,
-        "Owner": 255
-      }
-    ],
-    [
-      {
-        "IsOccupied": false,
-        "UnitType": 0,
-        "X": 9,
-        "Y": 0,
-        "Owner": 255
-      },
-      {
-        "IsOccupied": false,
-        "UnitType": 0,
-        "X": 9,
-        "Y": 1,
-        "Owner": 255
-      },
-      {
-        "IsOccupied": false,
-        "UnitType": 0,
-        "X": 9,
-        "Y": 2,
-        "Owner": 255
-      },
-      {
-        "IsOccupied": false,
-        "UnitType": 0,
-        "X": 9,
-        "Y": 3,
-        "Owner": 255
-      },
-      {
-        "IsOccupied": false,
-        "UnitType": 0,
         "X": 9,
         "Y": 4,
         "Owner": 255
@@ -714,11 +714,11 @@
         "Owner": 255
       },
       {
-        "IsOccupied": false,
+        "IsOccupied": true,
         "UnitType": 0,
         "X": 9,
         "Y": 9,
-        "Owner": 255
+        "Owner": 2
       }
     ]
   ],

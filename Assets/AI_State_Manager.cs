@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using SimpleNodes;
 using System;
+using System.Threading.Tasks;
 
 public class AI_State_Manager : MonoBehaviour
 {
-    public Ai_Vision_Factory factory;
+    [HideInInspector] public Ai_Vision_Factory factory;
     public Ai_Vision_Tile[,] currentFocus;
     public static AI_State_Manager instance;
 
@@ -27,9 +28,28 @@ public class AI_State_Manager : MonoBehaviour
     }
     public void TestingLoop()
     {
-        Tuple<int, int> retn = factory.GetNextPawn();
-      //  GetBestMoveForPawn(retn.Item1, retn.Item2, factory.vision_field);
-        Debug.Log(GetBestMoveForPawn(retn.Item1, retn.Item2, factory.vision_field));
+
+        //  GetBestMoveForPawn(retn.Item1, retn.Item2, factory.vision_field);
+        Task.Run(async () =>
+        {
+            int idx = 0;
+            Tuple<int, int> retn = factory.GetNextPawn(factory.vision_field,idx);
+
+            while (retn != null)
+            {
+                Ai_Choice choice = GetBestMoveForPawn(retn.Item1, retn.Item2, factory.vision_field);
+               // Debug.Log(retn.Item1 + " || " + retn.Item2);
+                Debug.Log($" Pawn Move to: {choice}");
+
+                idx++;
+                retn = factory.GetNextPawn(factory.vision_field,idx);
+                await Task.Delay(1);
+
+
+            }
+        });
+
+        // Debug.Log(GetBestMoveForPawn(retn.Item1, retn.Item2, factory.vision_field));
     }
 
     private Ai_Choice GetBestMoveForPawn(int x, int y, Ai_Vision_Tile[,] map)
@@ -51,7 +71,7 @@ public class AI_State_Manager : MonoBehaviour
 
         int genX = x, genY = y;
 
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 1; i++)
         {
             HeuristicOutputs = new Node<Ai_Vision_Tile[,]>[4];
             float[] weights = new float[] { rightMoveWeight, leftMoveWeight, upMoveWeight, downMoveWeight };
@@ -59,7 +79,7 @@ public class AI_State_Manager : MonoBehaviour
 
             #region if Stuff
             //Checks if you can move to the Right
-            if (genX< width - 1)
+            if (genX < width - 1)
             {
 
                 Tuple<Ai_Vision_Tile[,], int, int> rightMove = ShiftPawnTo(genX, genY, genX + 1, genY, latestGen.Data);
@@ -150,17 +170,22 @@ public class AI_State_Manager : MonoBehaviour
 
             default:
                 throw new Exception();
-              
+
         }
 
-        
+
         Tuple<Ai_Vision_Tile[,], int, int> ShiftPawnTo(int x, int y, int targetX, int targetY, Ai_Vision_Tile[,] map)
         {
-           if(map==null)
+            if (map == null)
             {
                 throw new Exception();
+
             }
-                Ai_Vision_Tile[,] newMap = (Ai_Vision_Tile[,])map.Clone();
+            else if (map[targetX, targetY].IsOccupied)
+            {
+                return new Tuple<Ai_Vision_Tile[,], int, int>(map, x, y);
+            }
+            Ai_Vision_Tile[,] newMap = (Ai_Vision_Tile[,])map.Clone();
 
             newMap[targetX, targetY].UnitType = newMap[x, y].UnitType;
             newMap[targetX, targetY].IsOccupied = true;

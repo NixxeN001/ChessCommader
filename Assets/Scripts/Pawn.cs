@@ -34,18 +34,20 @@ public class Pawn : MonoBehaviour, IPawnable, IOwnable, IMoveable, IDestination
 
             if (current != null)
             {
+                Debug.Log("No CurrentTile");
                 current.IsOccupied = false;
                 MoveDistance--;
             }
 
             current = value;
+            Debug.Log(value.X + ":" + value.Y);
 
             current.IsOccupied = true;
             MoveTo(current);
         }
     }
 
-    public int AttacksLeft { get ; set ; }
+    public int AttacksLeft { get; set; }
 
 
     /// <summary>
@@ -56,7 +58,7 @@ public class Pawn : MonoBehaviour, IPawnable, IOwnable, IMoveable, IDestination
     {
         if (MoveDistance <= 0)
         {
-           
+
             return new List<Tile>();
         }
 
@@ -80,8 +82,9 @@ public class Pawn : MonoBehaviour, IPawnable, IOwnable, IMoveable, IDestination
     /// <param name="destination"></param>
     public void MoveTo(Tile destination)
     {
-
-        this.transform.position = destination.WorldPos;
+        Debug.Log($"Moved {destination.WorldPos}");
+        transform.position = destination.WorldPos;
+        
     }
 
 

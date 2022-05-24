@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -153,7 +154,33 @@ public class GameManager : MonoBehaviour
 
         UI_system?.onTurnChange.Invoke(currentPlayer);
         await Ai_Vision_Factory.instance.RegenVision(gridManager.TileArray);
-        AI_State_Manager.instance.TestingLoop();
+        await AI_State_Manager.instance.TestingLoop();
 
+    }
+
+    public Tuple<int, int> GetIPawnableOnTile(int x, int y)
+    {
+        for (int i = 0; i < pawnsInPlay.Length; i++)
+        {
+            for (int j = 0; j < pawnsInPlay[i].Count; j++)
+            {
+                if (pawnsInPlay[i][j].CurrentTile.X == x && pawnsInPlay[i][j].CurrentTile.Y == y)
+                {
+                    return new Tuple<int, int>(i, j);
+                }
+            }
+        }
+        /*foreach (var pawn in pawnsInPlay)
+        {
+            foreach (var p in pawn)
+            {
+                if (p.CurrentTile.X == x && p.CurrentTile.Y == y)
+                {
+                    return p;
+                }
+            }
+        }*/
+
+        return null;
     }
 }

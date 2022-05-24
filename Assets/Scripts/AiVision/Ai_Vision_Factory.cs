@@ -48,34 +48,12 @@ public class Ai_Vision_Factory : MonoBehaviour
             int y = GameManager.instance.pawnsInPlay[1][i].CurrentTile.Y;
             return new Tuple<int, int>(x, y);
         }
-        catch (Exception e)
+        catch 
         {
 
             return null;
         }
-        /*
-                for (int y = 0; y < vision.GetLength(1); y++)
-                {
-                    for (int x = 0; x < vision.GetLength(0); x++)
-                    {
-                       // Debug.Log(GameManager.instance.pawnsInPlay[1].Count);
-                        if (vision[x, y].IsOccupied && vision[x, y].Owner == 2 && currentPIndex <= GameManager.instance.pawnsInPlay[1].Count)
-                        {
-                            currentPIndex += 1;
-                            // Debug.Log($"Checking Pawn at: {x}:{y}- CI: {currentPIndex} - PI:{lastPIndex}");
-                            if (currentPIndex >= lastPIndex)
-                            {
-                               // Debug.Log($"Found Pawn at:[{x}:{y}] - current Index: {currentPIndex} - prev Index:{lastPIndex}");
-                                lastPIndex++;
-
-                                return new Tuple<int, int>(x, y);
-                            }
-
-                        }
-                    }
-                }*/
-
-        
+       
     }
 
     public Tuple<int, int, int> GetEnemyCommanderDist(int x, int y, Ai_Vision_Tile[,] tilemap)
@@ -135,10 +113,13 @@ public class Ai_Vision_Factory : MonoBehaviour
 
     }
 
-    public async Task RegenVision(Tile[,] tilemap)
+    public async Task RegenVision(Tile[,] tilemap, bool endOfTurnReset = true)
     {
-        currentPIndex = 0;
-        lastPIndex = 0;
+        if (endOfTurnReset)
+        {
+            currentPIndex = 0;
+            lastPIndex = 0;
+        }
 
         int width = tilemap.GetLength(0);
         int height = tilemap.GetLength(1);

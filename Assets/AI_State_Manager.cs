@@ -26,28 +26,29 @@ public class AI_State_Manager : MonoBehaviour
     {
         factory = Ai_Vision_Factory.instance;
     }
-    public void TestingLoop()
+    public async Task TestingLoop()
     {
 
         //  GetBestMoveForPawn(retn.Item1, retn.Item2, factory.vision_field);
-        Task.Run(async () =>
-        {
+
+       /* Task.Run(async () =>
+        {*/
+            await Task.Delay(500);
             int idx = 0;
-            Tuple<int, int> retn = factory.GetNextPawn(factory.vision_field,idx);
+            Tuple<int, int> retn = factory.GetNextPawn(factory.vision_field, idx);
 
             while (retn != null)
             {
                 Ai_Choice choice = GetBestMoveForPawn(retn.Item1, retn.Item2, factory.vision_field);
-               // Debug.Log(retn.Item1 + " || " + retn.Item2);
-                Debug.Log($" Pawn Move to: {choice}");
-
+                await DeclareMove(choice, retn.Item1, retn.Item2);
+                // Debug.Log(retn.Item1 + " || " + retn.Item2);
                 idx++;
-                retn = factory.GetNextPawn(factory.vision_field,idx);
+                retn = factory.GetNextPawn(factory.vision_field, idx);
                 await Task.Delay(1);
 
 
             }
-        });
+        //});
 
         // Debug.Log(GetBestMoveForPawn(retn.Item1, retn.Item2, factory.vision_field));
     }
@@ -71,7 +72,7 @@ public class AI_State_Manager : MonoBehaviour
 
         int genX = x, genY = y;
 
-        for (int i = 0; i < 1; i++)
+        for (int i = 0; i < 10; i++)
         {
             HeuristicOutputs = new Node<Ai_Vision_Tile[,]>[4];
             float[] weights = new float[] { rightMoveWeight, leftMoveWeight, upMoveWeight, downMoveWeight };
@@ -121,8 +122,6 @@ public class AI_State_Manager : MonoBehaviour
                 HeuristicOutputs[3] = temp;
             }
             #endregion
-
-
 
             for (int j = 0; j < weights.Length; j++)
             {
@@ -235,6 +234,44 @@ public class AI_State_Manager : MonoBehaviour
         return weight;
     }
 
+    //
+    private async Task DeclareMove(Ai_Choice _choice, int x, int y)
+    {
+
+        Tile target;
+        switch (_choice)
+        {
+            case Ai_Choice.right:
+                target = GridManager.instance.TileArray[x + 1, y];
+                break;
+            case Ai_Choice.left:
+                target = GridManager.instance.TileArray[x - 1, y];
+                break;
+            case Ai_Choice.up:
+                target = GridManager.instance.TileArray[x, y + 1];
+                break;
+            case Ai_Choice.down:
+                target = GridManager.instance.TileArray[x, y - 1];
+                break;
+            default:
+                target = GridManager.instance.TileArray[x, y];
+                Debug.Log("Default");
+                break;
+
+        }
+        GameManager.instance.currentFocus = GameManager.instance.pawnsInPlay[GameManager.instance.GetIPawnableOnTile(x, y).Item1]
+            [GameManager.instance.GetIPawnableOnTile(x, y).Item2];
+
+
+        if (GameManager.instance.currentFocus.GetAvailableMoves().Contains(target))
+        {
+            Debug.Log($"Moved [{GameManager.instance.currentFocus.CurrentTile.X}:{GameManager.instance.currentFocus.CurrentTile.Y}] " +
+                $"to [{target.X} : {target.Y}] ");
+            GameManager.instance.currentFocus.CurrentTile = target;
+        }
+
+        //await factory.RegenVision(GridManager.instance.TileArray, false);
+    }
 
     public enum Ai_Choice
     {

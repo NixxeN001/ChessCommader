@@ -40,7 +40,7 @@ public class Pawn : MonoBehaviour, IPawnable, IOwnable, IMoveable, IDestination
             }
 
             current = value;
-            Debug.Log(value.X + ":" + value.Y);
+            //Debug.Log(value.X + ":" + value.Y);
 
             current.IsOccupied = true;
             MoveTo(current);
@@ -82,7 +82,7 @@ public class Pawn : MonoBehaviour, IPawnable, IOwnable, IMoveable, IDestination
     /// <param name="destination"></param>
     public void MoveTo(Tile destination)
     {
-        Debug.Log($"Moved {destination.WorldPos}");
+       // Debug.Log($"Moved {destination.WorldPos}");
         transform.position = destination.WorldPos;
         
     }

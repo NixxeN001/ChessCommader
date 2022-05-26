@@ -4,6 +4,9 @@ using UnityEngine;
 using SimpleNodes;
 using System;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using System.IO;
+using Random = UnityEngine.Random;
 
 public class AI_State_Manager : MonoBehaviour
 {
@@ -28,174 +31,149 @@ public class AI_State_Manager : MonoBehaviour
     }
     public async Task TestingLoop()
     {
+        await Task.Delay(500);
+        int idx = 0;
+        Tuple<int, int> retn = factory.GetNextPawn(factory.vision_field, idx);
 
-        //  GetBestMoveForPawn(retn.Item1, retn.Item2, factory.vision_field);
-
-       /* Task.Run(async () =>
-        {*/
-            await Task.Delay(500);
-            int idx = 0;
-            Tuple<int, int> retn = factory.GetNextPawn(factory.vision_field, idx);
-
-            while (retn != null)
-            {
-                Ai_Choice choice = GetBestMoveForPawn(retn.Item1, retn.Item2, factory.vision_field);
-                await DeclareMove(choice, retn.Item1, retn.Item2);
-                // Debug.Log(retn.Item1 + " || " + retn.Item2);
-                idx++;
-                retn = factory.GetNextPawn(factory.vision_field, idx);
-                await Task.Delay(1);
+        while (retn != null)
+        {
+            Ai_Choice choice = await GetBestMoveForPawn(retn.Item1, retn.Item2, factory.vision_field);
+            await DeclareMove(choice, retn.Item1, retn.Item2);
+            //Debug.Log(retn.Item1 + " || " + retn.Item2);
+            idx++;
+            retn = factory.GetNextPawn(factory.vision_field, idx);
+            await Task.Delay(1);
 
 
-            }
-        //});
-
-        // Debug.Log(GetBestMoveForPawn(retn.Item1, retn.Item2, factory.vision_field));
+        }
     }
 
-    private Ai_Choice GetBestMoveForPawn(int x, int y, Ai_Vision_Tile[,] map)
+    private async Task<Ai_Choice> GetBestMoveForPawn(int x, int y, Ai_Vision_Tile[,] map)
     {
-        /*Distance from the Commandar after the move
-         * Distance from closest enemy Pawn after move
-         * Distance from second closest enemy Pawn after move 
-         */
+        Debug.Log($"Get weights for Pawn {x}:{y}");
 
-        int width = map.GetLength(0), height = map.GetLength(1);
-
-        float rightMoveWeight = 0;
-        float leftMoveWeight = 0;
-        float upMoveWeight = 0;
-        float downMoveWeight = 0;
-
-        Node<Ai_Vision_Tile[,]>[] HeuristicOutputs = null;
-        Node<Ai_Vision_Tile[,]> latestGen = new Node<Ai_Vision_Tile[,]>(map);
-
-        int genX = x, genY = y;
-
-        for (int i = 0; i < 10; i++)
+        //left, right, down, up
+        var HeuristicNodes = new Node<Ai_Vision_Tile[,]>[4];
+        for (int i = 0; i < 4; i++)
         {
-            HeuristicOutputs = new Node<Ai_Vision_Tile[,]>[4];
-            float[] weights = new float[] { rightMoveWeight, leftMoveWeight, upMoveWeight, downMoveWeight };
-            int tempID = 0;
+            HeuristicNodes[i] = new Node<Ai_Vision_Tile[,]>(map, x, y);
+        }
 
-            #region if Stuff
-            //Checks if you can move to the Right
-            if (genX < width - 1)
+        for (int i = 0; i < 3; i++)
+        {
+            Debug.Log($"=====================Loop {i}========================");
+            if (x > 0)
             {
+                var tempRef = HeuristicNodes[0];
+                HeuristicNodes[0] = new Node<Ai_Vision_Tile[,]>(ShiftUnitOnMap(x, y, x - 1, y, map),
+                    HeuristicNodes[0].X - 1, HeuristicNodes[0].Y);
+                
+                HeuristicNodes[0].weight = getBoardWeightForUnit(HeuristicNodes[0].X - 1, HeuristicNodes[0].Y, HeuristicNodes[0].Data);
+                HeuristicNodes[0].In.Add(tempRef);
 
-                Tuple<Ai_Vision_Tile[,], int, int> rightMove = ShiftPawnTo(genX, genY, genX + 1, genY, latestGen.Data);
-                rightMoveWeight = getBoardWeightForUnit(rightMove.Item2, rightMove.Item3, latestGen.Data);
-                Node<Ai_Vision_Tile[,]> temp = new Node<Ai_Vision_Tile[,]>(rightMove.Item1);
-                temp.weight = rightMoveWeight;
-                temp.In.Add(HeuristicOutputs[0]);
-                HeuristicOutputs[0] = temp;
-            }
-            //Checks if you can move to the Left
-            if (genX > 0)
-            {
-                Tuple<Ai_Vision_Tile[,], int, int> leftmove = ShiftPawnTo(genX, genY, genX - 1, genY, latestGen.Data);
-                leftMoveWeight = getBoardWeightForUnit(leftmove.Item2, leftmove.Item3, latestGen.Data);
-                Node<Ai_Vision_Tile[,]> temp = new Node<Ai_Vision_Tile[,]>(leftmove.Item1);
-                temp.weight = leftMoveWeight;
-                temp.In.Add(HeuristicOutputs[1]);
-                HeuristicOutputs[1] = temp;
-            }
-            //Checks of you can move Up
-            if (genY < height - 1)
-            {
-                Tuple<Ai_Vision_Tile[,], int, int> upMove = ShiftPawnTo(genX, genY, genX, genY + 1, latestGen.Data);
-                upMoveWeight = getBoardWeightForUnit(upMove.Item2, upMove.Item3, latestGen.Data);
-                Node<Ai_Vision_Tile[,]> temp = new Node<Ai_Vision_Tile[,]>(upMove.Item1);
-                temp.weight = upMoveWeight;
-                temp.In.Add(HeuristicOutputs[2]);
-                HeuristicOutputs[2] = temp;
+                Debug.Log($"Weight for left is {HeuristicNodes[0].weight}");
             }
 
-            //Checks of you can move Down
-            if (genY > 0)
+            if (x < map.GetLength(0) - 1)
             {
-                Tuple<Ai_Vision_Tile[,], int, int> downMove = ShiftPawnTo(genX, genY, genX, genY - 1, latestGen.Data);
-                downMoveWeight = getBoardWeightForUnit(downMove.Item2, downMove.Item3, latestGen.Data);
-                Node<Ai_Vision_Tile[,]> temp = new Node<Ai_Vision_Tile[,]>(downMove.Item1);
-                temp.weight = downMoveWeight;
-                temp.In.Add(HeuristicOutputs[3]);
-                HeuristicOutputs[3] = temp;
-            }
-            #endregion
+                var tempRef = HeuristicNodes[1];
+                HeuristicNodes[1] = new Node<Ai_Vision_Tile[,]>(ShiftUnitOnMap(x, y, x + 1, y, map),
+                    HeuristicNodes[1].X + 1, HeuristicNodes[1].Y);
+                HeuristicNodes[1].weight = getBoardWeightForUnit(HeuristicNodes[1].X + 1, HeuristicNodes[1].Y, HeuristicNodes[1].Data);
+                HeuristicNodes[1].In.Add(tempRef);
 
-            for (int j = 0; j < weights.Length; j++)
+                Debug.Log($"Weight for right is {HeuristicNodes[1].weight}");
+            }
+
+            if (y > 0)
             {
-                if (weights[j] > weights[tempID])
+                var tempRef = HeuristicNodes[2];
+                HeuristicNodes[2] = new Node<Ai_Vision_Tile[,]>(ShiftUnitOnMap(x, y, x, y-1, map),
+                    HeuristicNodes[2].X, HeuristicNodes[2].Y - 1);
+                HeuristicNodes[2].weight = getBoardWeightForUnit(HeuristicNodes[2].X, HeuristicNodes[2].Y - 1, HeuristicNodes[2].Data);
+                HeuristicNodes[2].In.Add(tempRef);
+
+                Debug.Log($"Weight for down is {HeuristicNodes[2].weight}");
+            }
+
+            if (y < map.GetLength(0) - 1)
+            {
+                var tempRef = HeuristicNodes[3];
+                HeuristicNodes[3] = new Node<Ai_Vision_Tile[,]>(ShiftUnitOnMap(x, y, x, y + 1, map),
+                    HeuristicNodes[3].X, HeuristicNodes[3].Y + 1);
+                HeuristicNodes[3].weight = getBoardWeightForUnit(HeuristicNodes[3].X, HeuristicNodes[3].Y + 1, HeuristicNodes[3].Data);
+                HeuristicNodes[3].In.Add(tempRef);
+
+                Debug.Log($"Weight for up is {HeuristicNodes[3].weight}");
+            }
+            Debug.Log("===============================================");
+        }
+
+        //Add up all weights from loop above 
+
+        int bestChoice = -1;
+        float bestW = 0;
+        for (int i = 0; i < 4; i++)
+        {
+            float tempW = 0;
+            Node<Ai_Vision_Tile[,]> tempRef = HeuristicNodes[i];
+            for (int j = 0; j < 3; j++)
+            {
+                if (tempRef.In.Count > 0)
                 {
-                    tempID = j;
+                    tempRef = tempRef.In[0];
+                    tempW += tempRef.weight;
                 }
-
+                if (tempW > bestW)
+                {
+                    bestChoice = i;
+                    bestW = tempW;
+                }
             }
-            latestGen = new Node<Ai_Vision_Tile[,]>(HeuristicOutputs[tempID]);
-
         }
 
-        float highestWeightPath = 0f;
-        int choiceIndex = 0;
-        Node<Ai_Vision_Tile[,]> currentNode;
-        for (int i = 0; i < HeuristicOutputs.Length; i++)
-        {
-            float tmpweightPath = 0;
-            currentNode = HeuristicOutputs[i];
-            while (currentNode?.In.Count > 0)
-            {
-                tmpweightPath += currentNode.weight;
-                currentNode = HeuristicOutputs[i].In[0];
-            }
+        Debug.Log($"best move is Move {bestChoice}");
 
-            if (tmpweightPath > highestWeightPath)
-            {
-                highestWeightPath = tmpweightPath;
-                choiceIndex = i;
-            }
-
-        }
-
-        switch (choiceIndex)
+        switch (bestChoice)
         {
             case 0:
-                return Ai_Choice.right;
+                return Ai_Choice.left;
             case 1:
                 return Ai_Choice.left;
             case 2:
-                return Ai_Choice.up;
+                return Ai_Choice.left;
             case 3:
-                return Ai_Choice.down;
-
+                return Ai_Choice.left;
             default:
-                throw new Exception();
-
+                Debug.Log("Wrong shit");
+                return default(Ai_Choice);
         }
 
-
-        Tuple<Ai_Vision_Tile[,], int, int> ShiftPawnTo(int x, int y, int targetX, int targetY, Ai_Vision_Tile[,] map)
-        {
-            if (map == null)
-            {
-                throw new Exception();
-
-            }
-            else if (map[targetX, targetY].IsOccupied)
-            {
-                return new Tuple<Ai_Vision_Tile[,], int, int>(map, x, y);
-            }
-            Ai_Vision_Tile[,] newMap = (Ai_Vision_Tile[,])map.Clone();
-
-            newMap[targetX, targetY].UnitType = newMap[x, y].UnitType;
-            newMap[targetX, targetY].IsOccupied = true;
-
-            newMap[x, y].UnitType = byte.MaxValue;
-            newMap[x, y].IsOccupied = false;
-
-            return new Tuple<Ai_Vision_Tile[,], int, int>(newMap, targetX, targetY);
-        }
     }
 
+    private Ai_Vision_Tile[,] ShiftUnitOnMap(int cX, int cY, int tX, int tY, Ai_Vision_Tile[,] shiftMap)
+    {
+        shiftMap[cX,cY].IsOccupied = false;
+        shiftMap[tX, tY].IsOccupied = true;
+
+        shiftMap[tX, tY].UnitType = shiftMap[cX, cY].UnitType;
+        shiftMap[cX, cY].UnitType = 0;
+
+        shiftMap[tX, tY].Owner = shiftMap[cX, cY].Owner;
+        shiftMap[cX, cY].Owner = byte.MaxValue;
+
+        /*string path = Application.persistentDataPath + $"/{Random.Range(0,9999)}.Json";
+
+        string Write = $"MOVING {cX}:{cY} to {tX}:{tY}\n" + JsonConvert.SerializeObject(shiftMap);
+
+        StreamWriter sw = new StreamWriter(path);
+        Debug.Log(path);
+        sw.Write(Write);
+        sw.Flush();
+        sw.Close();*/
+
+        return shiftMap;
+    }
 
     public float getBoardWeightForUnit(int x, int y, Ai_Vision_Tile[,] tilemap)
     {
@@ -265,8 +243,8 @@ public class AI_State_Manager : MonoBehaviour
 
         if (GameManager.instance.currentFocus.GetAvailableMoves().Contains(target))
         {
-            Debug.Log($"Moved [{GameManager.instance.currentFocus.CurrentTile.X}:{GameManager.instance.currentFocus.CurrentTile.Y}] " +
-                $"to [{target.X} : {target.Y}] ");
+            /*Debug.Log($"Moved [{GameManager.instance.currentFocus.CurrentTile.X}:{GameManager.instance.currentFocus.CurrentTile.Y}] " +
+                $"to [{target.X} : {target.Y}] ");*/
             GameManager.instance.currentFocus.CurrentTile = target;
         }
 

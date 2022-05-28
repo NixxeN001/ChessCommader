@@ -46,6 +46,23 @@ public class GameManager : MonoBehaviour
         return byte.MaxValue;
     }
 
+    public Pawn GetPawnAtCoords(int x, int y)
+    {
+
+        for (int i = 0; i < pawnsInPlay.Length; i++)
+        {
+            foreach (Pawn pawn in pawnsInPlay[i])
+            {
+                if (pawn.CurrentTile.X==x && pawn.CurrentTile.Y ==y)
+                {
+                    return pawn;
+                }
+            }
+        }
+
+        return null;
+    }
+
     private void Awake()
     {
         if (instance == null)
@@ -136,25 +153,44 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
+    public void CheckAIWin()
+    {
+        foreach (Pawn item in pawnsInPlay[1])
+        {
+            if (item.CurrentTile == commanders[0].CurrentTile)
+            {
+                EndGame(Commanders[0]);
+            }
+        }
+    }
+
     public async void EndTurn()
     {
 
-
-        currentPlayer = currentPlayer == 1 ? (byte)2 : (byte)1;
-        currentFocus = null;
-
-        foreach (Pawn po in pawnsInPlay[currentPlayer - 1])
+        try
         {
-            po.MoveDistance = 1;
-            po.AttacksLeft = 1;
+            currentPlayer = currentPlayer == 1 ? (byte)2 : (byte)1;
+            currentFocus = null;
+
+            foreach (Pawn po in pawnsInPlay[currentPlayer - 1])
+            {
+                po.MoveDistance = 1;
+                po.AttacksLeft = 1;
+            }
+
+            commanders[currentPlayer - 1].AttacksLeft = 0;
+
+
+            UI_system?.onTurnChange.Invoke(currentPlayer);
+            await Ai_Vision_Factory.instance.RegenVision(gridManager.TileArray);
+            await AI_State_Manager.instance.TestingLoop();
         }
+        catch 
+        {
 
-        commanders[currentPlayer - 1].AttacksLeft = 0;
-
-
-        UI_system?.onTurnChange.Invoke(currentPlayer);
-        await Ai_Vision_Factory.instance.RegenVision(gridManager.TileArray);
-        await AI_State_Manager.instance.TestingLoop();
+           
+        }
+       
 
     }
 

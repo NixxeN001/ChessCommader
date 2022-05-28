@@ -46,32 +46,46 @@ public class AI_State_Manager : MonoBehaviour
 
 
         }
+
+        GameManager.instance.CheckAIWin();
+
     }
 
+
+    /*Method that gets called recursivly that decides which direction the pawn needs to go to.
+     * its options 
+     * 
+     * 
+     * 
+     * 
+     */
     private async Task<Ai_Choice> GetBestMoveForPawn(int x, int y, Ai_Vision_Tile[,] map)
     {
-        Debug.Log($"Get weights for Pawn {x}:{y}");
+        // Debug.Log($"Get weights for Pawn {x}:{y}");
 
         //left, right, down, up
         var HeuristicNodes = new Node<Ai_Vision_Tile[,]>[4];
+
         for (int i = 0; i < 4; i++)
         {
             HeuristicNodes[i] = new Node<Ai_Vision_Tile[,]>(map, x, y);
         }
 
-        for (int i = 0; i < 3; i++)
+
+        //Prediction loop
+        for (int i = 0; i < 5; i++)
         {
-            Debug.Log($"=====================Loop {i}========================");
+
             if (x > 0)
             {
                 var tempRef = HeuristicNodes[0];
                 HeuristicNodes[0] = new Node<Ai_Vision_Tile[,]>(ShiftUnitOnMap(x, y, x - 1, y, map),
                     HeuristicNodes[0].X - 1, HeuristicNodes[0].Y);
-                
-                HeuristicNodes[0].weight = getBoardWeightForUnit(HeuristicNodes[0].X - 1, HeuristicNodes[0].Y, HeuristicNodes[0].Data);
+
+                HeuristicNodes[0].weight = await getBoardWeightForUnit(HeuristicNodes[0].X - 1, HeuristicNodes[0].Y, HeuristicNodes[0].Data);
                 HeuristicNodes[0].In.Add(tempRef);
 
-                Debug.Log($"Weight for left is {HeuristicNodes[0].weight}");
+
             }
 
             if (x < map.GetLength(0) - 1)
@@ -79,21 +93,21 @@ public class AI_State_Manager : MonoBehaviour
                 var tempRef = HeuristicNodes[1];
                 HeuristicNodes[1] = new Node<Ai_Vision_Tile[,]>(ShiftUnitOnMap(x, y, x + 1, y, map),
                     HeuristicNodes[1].X + 1, HeuristicNodes[1].Y);
-                HeuristicNodes[1].weight = getBoardWeightForUnit(HeuristicNodes[1].X + 1, HeuristicNodes[1].Y, HeuristicNodes[1].Data);
+                HeuristicNodes[1].weight = await getBoardWeightForUnit(HeuristicNodes[1].X + 1, HeuristicNodes[1].Y, HeuristicNodes[1].Data);
                 HeuristicNodes[1].In.Add(tempRef);
 
-                Debug.Log($"Weight for right is {HeuristicNodes[1].weight}");
+
             }
 
             if (y > 0)
             {
                 var tempRef = HeuristicNodes[2];
-                HeuristicNodes[2] = new Node<Ai_Vision_Tile[,]>(ShiftUnitOnMap(x, y, x, y-1, map),
+                HeuristicNodes[2] = new Node<Ai_Vision_Tile[,]>(ShiftUnitOnMap(x, y, x, y - 1, map),
                     HeuristicNodes[2].X, HeuristicNodes[2].Y - 1);
-                HeuristicNodes[2].weight = getBoardWeightForUnit(HeuristicNodes[2].X, HeuristicNodes[2].Y - 1, HeuristicNodes[2].Data);
+                HeuristicNodes[2].weight = await getBoardWeightForUnit(HeuristicNodes[2].X, HeuristicNodes[2].Y - 1, HeuristicNodes[2].Data);
                 HeuristicNodes[2].In.Add(tempRef);
 
-                Debug.Log($"Weight for down is {HeuristicNodes[2].weight}");
+
             }
 
             if (y < map.GetLength(0) - 1)
@@ -101,15 +115,19 @@ public class AI_State_Manager : MonoBehaviour
                 var tempRef = HeuristicNodes[3];
                 HeuristicNodes[3] = new Node<Ai_Vision_Tile[,]>(ShiftUnitOnMap(x, y, x, y + 1, map),
                     HeuristicNodes[3].X, HeuristicNodes[3].Y + 1);
-                HeuristicNodes[3].weight = getBoardWeightForUnit(HeuristicNodes[3].X, HeuristicNodes[3].Y + 1, HeuristicNodes[3].Data);
+                HeuristicNodes[3].weight = await getBoardWeightForUnit(HeuristicNodes[3].X, HeuristicNodes[3].Y + 1, HeuristicNodes[3].Data);
                 HeuristicNodes[3].In.Add(tempRef);
 
-                Debug.Log($"Weight for up is {HeuristicNodes[3].weight}");
+
             }
-            Debug.Log("===============================================");
+
         }
 
-        //Add up all weights from loop above 
+        /*Add up all weights from loop above 
+        *This is what determines the best 
+
+        */
+
 
         int bestChoice = -1;
         float bestW = 0;
@@ -132,20 +150,19 @@ public class AI_State_Manager : MonoBehaviour
             }
         }
 
-        Debug.Log($"best move is Move {bestChoice}");
+
 
         switch (bestChoice)
         {
             case 0:
                 return Ai_Choice.left;
             case 1:
-                return Ai_Choice.left;
+                return Ai_Choice.right;
             case 2:
-                return Ai_Choice.left;
+                return Ai_Choice.down;
             case 3:
-                return Ai_Choice.left;
+                return Ai_Choice.up;
             default:
-                Debug.Log("Wrong shit");
                 return default(Ai_Choice);
         }
 
@@ -153,7 +170,7 @@ public class AI_State_Manager : MonoBehaviour
 
     private Ai_Vision_Tile[,] ShiftUnitOnMap(int cX, int cY, int tX, int tY, Ai_Vision_Tile[,] shiftMap)
     {
-        shiftMap[cX,cY].IsOccupied = false;
+        shiftMap[cX, cY].IsOccupied = false;
         shiftMap[tX, tY].IsOccupied = true;
 
         shiftMap[tX, tY].UnitType = shiftMap[cX, cY].UnitType;
@@ -162,20 +179,21 @@ public class AI_State_Manager : MonoBehaviour
         shiftMap[tX, tY].Owner = shiftMap[cX, cY].Owner;
         shiftMap[cX, cY].Owner = byte.MaxValue;
 
-        /*string path = Application.persistentDataPath + $"/{Random.Range(0,9999)}.Json";
 
-        string Write = $"MOVING {cX}:{cY} to {tX}:{tY}\n" + JsonConvert.SerializeObject(shiftMap);
-
-        StreamWriter sw = new StreamWriter(path);
-        Debug.Log(path);
-        sw.Write(Write);
-        sw.Flush();
-        sw.Close();*/
 
         return shiftMap;
     }
 
-    public float getBoardWeightForUnit(int x, int y, Ai_Vision_Tile[,] tilemap)
+
+    /*
+     * 
+     * 
+     * 
+     * 
+     * 
+     */
+
+    public async Task<float> getBoardWeightForUnit(int x, int y, Ai_Vision_Tile[,] tilemap)
     {
         int width = tilemap.GetLength(0), height = tilemap.GetLength(1);
         float maxPossibleMoveDist = (width - 1) + (height - 1);
@@ -191,11 +209,11 @@ public class AI_State_Manager : MonoBehaviour
 
 
 
-        Tuple<int, int, int> closestEnemyTile = factory.GetClosestEnemyPawn(x, y, tilemap);
+        Tuple<int, int, int> closestEnemyTile = await factory.GetClosestEnemyPawn(x, y, tilemap);
         bool eatsPawn = closestEnemyTile.Item3 == 0;
         if (closestEnemyTile.Item3 == 0)
         {
-            closestEnemyTile = factory.GetClosestEnemyPawn(x, y, tilemap, false);
+            closestEnemyTile = await factory.GetClosestEnemyPawn(x, y, tilemap, false);
 
         }
 
@@ -212,7 +230,14 @@ public class AI_State_Manager : MonoBehaviour
         return weight;
     }
 
-    //
+
+    /*
+     * 
+     * 
+     *  
+     * 
+     */
+
     private async Task DeclareMove(Ai_Choice _choice, int x, int y)
     {
 
@@ -237,18 +262,25 @@ public class AI_State_Manager : MonoBehaviour
                 break;
 
         }
+        //
         GameManager.instance.currentFocus = GameManager.instance.pawnsInPlay[GameManager.instance.GetIPawnableOnTile(x, y).Item1]
             [GameManager.instance.GetIPawnableOnTile(x, y).Item2];
 
 
+        //
         if (GameManager.instance.currentFocus.GetAvailableMoves().Contains(target))
         {
-            /*Debug.Log($"Moved [{GameManager.instance.currentFocus.CurrentTile.X}:{GameManager.instance.currentFocus.CurrentTile.Y}] " +
-                $"to [{target.X} : {target.Y}] ");*/
             GameManager.instance.currentFocus.CurrentTile = target;
         }
 
-        //await factory.RegenVision(GridManager.instance.TileArray, false);
+        await factory.RegenVision(GridManager.instance.TileArray, false);
+        var tmp = await factory.GetClosestEnemyPawn(target.X, target.Y, factory.latestGen.Data);
+        if (tmp.Item3 == 0)
+        {
+            GameManager.instance.RemovePawn(GameManager.instance.GetPawnAtCoords(tmp.Item1, tmp.Item2));
+            await factory.RegenVision(GridManager.instance.TileArray, false);
+        }
+
     }
 
     public enum Ai_Choice

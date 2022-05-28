@@ -34,7 +34,7 @@ public class Pawn : MonoBehaviour, IPawnable, IOwnable, IMoveable, IDestination
 
             if (current != null)
             {
-                Debug.Log("No CurrentTile");
+               // Debug.Log("No CurrentTile");
                 current.IsOccupied = false;
                 MoveDistance--;
             }

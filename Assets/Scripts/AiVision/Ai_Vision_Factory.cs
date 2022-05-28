@@ -40,20 +40,20 @@ public class Ai_Vision_Factory : MonoBehaviour
 
     public Tuple<int, int> GetNextPawn(Ai_Vision_Tile[,] vision, int i)
     {
-        
-       
+
+
         try
         {
             int x = GameManager.instance.pawnsInPlay[1][i].CurrentTile.X;
             int y = GameManager.instance.pawnsInPlay[1][i].CurrentTile.Y;
             return new Tuple<int, int>(x, y);
         }
-        catch 
+        catch
         {
 
             return null;
         }
-       
+
     }
 
     public Tuple<int, int, int> GetEnemyCommanderDist(int x, int y, Ai_Vision_Tile[,] tilemap)
@@ -69,8 +69,21 @@ public class Ai_Vision_Factory : MonoBehaviour
     }
 
 
+    /* Returns a Tuple which gets the closest enemy Pawn for the AI
+     * does a calculation of the position of the AI pawn and the player pawn and figures out
+     * which is the closest one.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     */
 
-    public Tuple<int, int, int> GetClosestEnemyPawn(int x, int y, Ai_Vision_Tile[,] tilemap, bool includeOverlap = true)
+    public async Task<Tuple<int, int, int>> GetClosestEnemyPawn(int x, int y, Ai_Vision_Tile[,] tilemap, bool includeOverlap = true)
     {
         //Get a List of tiles that have an enemy Pawn on it
         List<Ai_Vision_Tile> enemyTiles = new List<Ai_Vision_Tile>();
@@ -90,7 +103,7 @@ public class Ai_Vision_Factory : MonoBehaviour
             int heuristicDistance =
                 Mathf.Abs(eTile.X - x) + Mathf.Abs(eTile.Y - y);
 
-            // Debug.Log(heuristicDistance);
+            
 
             //checks which pawn is closests and sets it to closestEnemyTile
             if (heuristicDistance < closetDist)
@@ -98,6 +111,7 @@ public class Ai_Vision_Factory : MonoBehaviour
                 if (heuristicDistance == 0 && includeOverlap)
                 {
                     closestEnemyTile = eTile;
+                    closetDist = heuristicDistance;
                 }
 
                 else if (heuristicDistance == 0)
@@ -105,7 +119,13 @@ public class Ai_Vision_Factory : MonoBehaviour
                     continue;
                 }
 
-                else closestEnemyTile = eTile;
+                else
+                {
+                    closestEnemyTile = eTile;
+                    closetDist = heuristicDistance;
+                }
+
+
             }
         }
 

@@ -72,7 +72,7 @@ public class Commander : MonoBehaviour, IOwnable, IDestination, IMoveable, IPawn
 
     public void HandleLeftClick()
     {
-        Debug.Log("Commader Selected");
+      
 
         if (GameManager.instance.currentPlayer == Owner)
         {

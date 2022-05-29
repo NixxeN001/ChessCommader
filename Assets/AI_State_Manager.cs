@@ -73,7 +73,7 @@ public class AI_State_Manager : MonoBehaviour
 
 
         //Prediction loop
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < Game_Settings.instance.diff_Setting; i++)
         {
 
             if (x > 0)
@@ -262,6 +262,8 @@ public class AI_State_Manager : MonoBehaviour
                 break;
 
         }
+
+
         //
         GameManager.instance.currentFocus = GameManager.instance.pawnsInPlay[GameManager.instance.GetIPawnableOnTile(x, y).Item1]
             [GameManager.instance.GetIPawnableOnTile(x, y).Item2];

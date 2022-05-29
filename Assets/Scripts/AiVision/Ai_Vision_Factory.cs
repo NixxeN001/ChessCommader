@@ -34,7 +34,7 @@ public class Ai_Vision_Factory : MonoBehaviour
         {
             DiskNodes.Add(Node<Ai_Vision_Tile[,]>.Deserialize(entry));
         }
-        Debug.Log(DiskNodes.Count);
+       
     }
 
 

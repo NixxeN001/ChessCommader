@@ -1,9 +1,9 @@
 {
   "dependencies": {
     "com.simplenodes": {
-      "version": "file:D:/VEGA_WORK/YEAR 4 (GADE only)/Semester 1/com.simplenodes",
+      "version": "file:com.simplenodes",
       "depth": 0,
-      "source": "local",
+      "source": "embedded",
       "dependencies": {
         "com.unity.nuget.newtonsoft-json": "3.0.2"
       }

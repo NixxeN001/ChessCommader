@@ -1,0 +1,14 @@
+{
+  "name": "com.simplenodes",
+  "version": "1.0.0",
+  "displayName": "SimpleNodes",
+  "unity": "2020.1",
+  "dependencies": {
+    "com.unity.nuget.newtonsoft-json": "3.0.2"
+  },
+  "license": "CC0",
+  "author": {
+    "name": "Filippo Cortese",
+    "email": "fcortese.design@gmail.com"
+  }
+}

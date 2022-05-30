@@ -29,6 +29,12 @@ public class AI_State_Manager : MonoBehaviour
     {
         factory = Ai_Vision_Factory.instance;
     }
+
+
+    /*This is the method that is called in the game Manager class
+     * that coverns what the Ai does in the game
+     * 
+     */
     public async Task TestingLoop()
     {
         await Task.Delay(500);
@@ -72,10 +78,17 @@ public class AI_State_Manager : MonoBehaviour
         }
 
 
-        //Prediction loop
+        /*Prediction loop
+         * this is the "difficulty" for our game. Each iteration of the game state is one loop 
+         * of this section. The AI will make the best move 
+         * 
+         * 
+         * 
+         */
         for (int i = 0; i < Game_Settings.instance.diff_Setting; i++)
         {
 
+            //Checks if the pawn can move left
             if (x > 0)
             {
                 var tempRef = HeuristicNodes[0];
@@ -87,7 +100,7 @@ public class AI_State_Manager : MonoBehaviour
 
 
             }
-
+            //Checks if the pawn can move right
             if (x < map.GetLength(0) - 1)
             {
                 var tempRef = HeuristicNodes[1];
@@ -99,6 +112,7 @@ public class AI_State_Manager : MonoBehaviour
 
             }
 
+            //Checks if the pawn can move down
             if (y > 0)
             {
                 var tempRef = HeuristicNodes[2];
@@ -109,7 +123,7 @@ public class AI_State_Manager : MonoBehaviour
 
 
             }
-
+            //Checks if the pawn can move up
             if (y < map.GetLength(0) - 1)
             {
                 var tempRef = HeuristicNodes[3];
@@ -123,10 +137,11 @@ public class AI_State_Manager : MonoBehaviour
 
         }
 
-        /*Add up all weights from loop above 
-        *This is what determines the best 
-
-        */
+        /*This section adds up all the weights from above and determines 
+         * which one has the highest weighting. The AI will choose the highest weighting
+         * which gets fed to an array with the poistion choice. the index of the array
+         * corresponds to the movement of the pawn
+         */
 
 
         int bestChoice = -1;
@@ -151,7 +166,11 @@ public class AI_State_Manager : MonoBehaviour
         }
 
 
-
+        /* best choice is an int based on the weights above
+         * if HeuristicNodes[0] is the highest weighting. it will choose Left
+         * if HeuristicNodes[1] is the highest weighting. It will choose right
+         * etc...
+         */
         switch (bestChoice)
         {
             case 0:
@@ -168,6 +187,16 @@ public class AI_State_Manager : MonoBehaviour
 
     }
 
+
+    /*This method is reponsible for moving the pawns o its new location 
+     * it takes in its current X and Y positions and a target's X and Y positions
+     * as well as the board state
+     * 
+     * it then "moves" the pawn to the target position making it "occupied"
+     * and the prev position "unoccupied"
+     * 
+     * it returns an A_Vision_Tile 2D array, which is the game state
+     */
     private Ai_Vision_Tile[,] ShiftUnitOnMap(int cX, int cY, int tX, int tY, Ai_Vision_Tile[,] shiftMap)
     {
         shiftMap[cX, cY].IsOccupied = false;

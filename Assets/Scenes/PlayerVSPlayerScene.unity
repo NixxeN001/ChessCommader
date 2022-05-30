@@ -131,30 +131,32 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 577793248730795379, guid: d404726d7d9b0fc4da678560193a78c8, type: 3}
-      propertyPath: m_text
-      value: 'Game Controls:
-
-        -Red Player starts first
-
-
-        -Left click
-        to select a pawn or Commander
-
-
-        -Right click to move the pawn/commander
-        to a new position
-
-
-        -Right click an enemy pawn when next to it to
-        attack it '
+      propertyPath: m_margin.w
+      value: -1.6172485
       objectReference: {fileID: 0}
     - target: {fileID: 577793248730795379, guid: d404726d7d9b0fc4da678560193a78c8, type: 3}
-      propertyPath: m_margin.w
-      value: -392.31027
+      propertyPath: m_margin.x
+      value: -0.90548706
+      objectReference: {fileID: 0}
+    - target: {fileID: 577793248730795379, guid: d404726d7d9b0fc4da678560193a78c8, type: 3}
+      propertyPath: m_margin.z
+      value: 19.14991
+      objectReference: {fileID: 0}
+    - target: {fileID: 577793248730795380, guid: d404726d7d9b0fc4da678560193a78c8, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 434.67
+      objectReference: {fileID: 0}
+    - target: {fileID: 577793248730795380, guid: d404726d7d9b0fc4da678560193a78c8, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 428.3698
+      objectReference: {fileID: 0}
+    - target: {fileID: 577793248730795380, guid: d404726d7d9b0fc4da678560193a78c8, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 742.66
       objectReference: {fileID: 0}
     - target: {fileID: 577793248730795380, guid: d404726d7d9b0fc4da678560193a78c8, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 232
+      value: 149.84
       objectReference: {fileID: 0}
     - target: {fileID: 577793248849848681, guid: d404726d7d9b0fc4da678560193a78c8, type: 3}
       propertyPath: m_Pivot.x
@@ -243,6 +245,61 @@ PrefabInstance:
     - target: {fileID: 577793248849848685, guid: d404726d7d9b0fc4da678560193a78c8, type: 3}
       propertyPath: m_Name
       value: Instructions
+      objectReference: {fileID: 0}
+    - target: {fileID: 577793249483922799, guid: d404726d7d9b0fc4da678560193a78c8, type: 3}
+      propertyPath: m_text
+      value: 'Game Rules:
+
+        Player 1 is blue
+
+        Player 2 is red
+
+        -Pawns
+        can move and attack in then same turn
+
+
+        -Red Player starts first
+
+
+        -Pawns
+        can only move UP/DOWN/LEFT/RIGHT from it''s position and Attack enemy pawns
+        when next to them
+
+
+        -Commanders can move anywhere on the board ONCE
+        per game
+
+
+        - The game ends when the Commader of a player dies. The
+        player who''s Commader has died, is the loser'
+      objectReference: {fileID: 0}
+    - target: {fileID: 577793249483922799, guid: d404726d7d9b0fc4da678560193a78c8, type: 3}
+      propertyPath: m_margin.w
+      value: -5.4921875
+      objectReference: {fileID: 0}
+    - target: {fileID: 577793249483922799, guid: d404726d7d9b0fc4da678560193a78c8, type: 3}
+      propertyPath: m_margin.x
+      value: 17.13697
+      objectReference: {fileID: 0}
+    - target: {fileID: 577793249483922799, guid: d404726d7d9b0fc4da678560193a78c8, type: 3}
+      propertyPath: m_margin.z
+      value: -1.5772247
+      objectReference: {fileID: 0}
+    - target: {fileID: 577793249483922800, guid: d404726d7d9b0fc4da678560193a78c8, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 453.48
+      objectReference: {fileID: 0}
+    - target: {fileID: 577793249483922800, guid: d404726d7d9b0fc4da678560193a78c8, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 728.041
+      objectReference: {fileID: 0}
+    - target: {fileID: 577793249483922800, guid: d404726d7d9b0fc4da678560193a78c8, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -733.26
+      objectReference: {fileID: 0}
+    - target: {fileID: 577793249483922800, guid: d404726d7d9b0fc4da678560193a78c8, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d404726d7d9b0fc4da678560193a78c8, type: 3}

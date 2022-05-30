@@ -56,6 +56,11 @@ public class Ai_Vision_Factory : MonoBehaviour
 
     }
 
+    /*Method returns a Tuple with the enemy Commanders X and Y positions as
+     * well as the distance between the AI pawn and the enemy commander
+     * This distance is the heuristic funtion that will determine which
+     * directioh the AI will move to
+     */
     public Tuple<int, int, int> GetEnemyCommanderDist(int x, int y, Ai_Vision_Tile[,] tilemap)
     {
         int cx = GameManager.instance.Commanders[0].CurrentTile.X;
@@ -72,16 +77,11 @@ public class Ai_Vision_Factory : MonoBehaviour
     /* Returns a Tuple which gets the closest enemy Pawn for the AI
      * does a calculation of the position of the AI pawn and the player pawn and figures out
      * which is the closest one.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
+     * Method returns a Tuple with the enemy pawns X,Y values as well as the distance from 
+     * that pawn 
      */
+
+
 
     public async Task<Tuple<int, int, int>> GetClosestEnemyPawn(int x, int y, Ai_Vision_Tile[,] tilemap, bool includeOverlap = true)
     {
@@ -105,7 +105,7 @@ public class Ai_Vision_Factory : MonoBehaviour
 
             
 
-            //checks which pawn is closests and sets it to closestEnemyTile
+            //checks which pawn is closests and sets it to closestEnemyTile object
             if (heuristicDistance < closetDist)
             {
                 if (heuristicDistance == 0 && includeOverlap)

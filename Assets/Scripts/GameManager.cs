@@ -182,6 +182,7 @@ public class GameManager : MonoBehaviour
 
 
             UI_system?.onTurnChange.Invoke(currentPlayer);
+
             if (Game_Settings.instance.PvCPU)
             {
                 await Ai_Vision_Factory.instance.RegenVision(gridManager.TileArray);

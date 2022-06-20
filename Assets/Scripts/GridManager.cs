@@ -4,9 +4,12 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
+using Random = UnityEngine.Random;
 
 public class GridManager : MonoBehaviour
 {
+    private const int POINT_LOOP = 2;
+    private const int EXPAND_VALUE = 9;
     public static GridManager instance;
     private Tile[,] tileArray;
     public Tile[,] TileArray
@@ -16,7 +19,7 @@ public class GridManager : MonoBehaviour
             return tileArray;
         }
     }
-
+    int[,] map_Types;
     [SerializeField] private Vector2Int gridSize;
     [SerializeField] private Transform worldParent;
     [SerializeField] private GameObject prefabTile;
@@ -36,7 +39,7 @@ public class GridManager : MonoBehaviour
         GenerateMap();
     }
 
-   
+
 
     /// <summary>
     /// Returns empty tile that is "walkable" and unoccupied
@@ -54,6 +57,7 @@ public class GridManager : MonoBehaviour
             currentSelction.IsOccupied = true;
         }
         return currentSelction;
+
         //  return tileArray[UnityEngine.Random.Range(0, gridSize.x), UnityEngine.Random.Range(0, gridSize.y)];
 
     }
@@ -64,6 +68,7 @@ public class GridManager : MonoBehaviour
     {
         tileArray = new Tile[gridSize.x, gridSize.y];
 
+        await GenerateTileTypes();
         await PlaceTiles();
 
         await ProcessTiles();
@@ -73,14 +78,43 @@ public class GridManager : MonoBehaviour
         //Debug.Log("Done");
     }
 
+    private async Task GenerateTileTypes()
+    {
+        map_Types = new int[gridSize.x, gridSize.y];
+        for (int i = 0; i < gridSize.y; i++)
+        {
+            for (int h = 0; h < gridSize.x; h++)
+            {
+                map_Types[h, i] = 0;
+            }
+        }
+
+        for (int i = 0; i < POINT_LOOP; i++)
+        {
+            Vector2Int grid_point = new Vector2Int(Random.Range(0, gridSize.x), Random.Range(0, gridSize.y));
+            map_Types[grid_point.x, grid_point.y] = 1;
+
+            for (int j = 0; j < EXPAND_VALUE; j++)
+            {
+                Vector2Int newPoint = map_Types.GetPointAround(grid_point);
+                grid_point = newPoint;
+                map_Types[grid_point.x, grid_point.y] = 1;
+            }
+        }
+    }
     private async Task PlaceTiles()
     {
         for (uint y = 0; y < gridSize.y; y++)
         {
             for (uint x = 0; x < gridSize.x; x++)
             {
+                TileType tileType = new Gravel();
 
-                tileArray[x, y] = new Tile(new Gravel(), x, y, tileSize);
+                if (map_Types[x,y]!=0)
+                {
+                    tileType = new Wall();
+                }
+                tileArray[x, y] = new Tile(tileType, x, y, tileSize);
                 await Task.Delay(10);
 
             }
@@ -107,7 +141,7 @@ public class GridManager : MonoBehaviour
         return tileArray[xPos, yPos];
     }
 
-  
+
 }
 
 

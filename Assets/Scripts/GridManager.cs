@@ -48,7 +48,7 @@ public class GridManager : MonoBehaviour
     public Tile RandomTile(bool occupieOnGet = false)
     {
         Tile currentSelction = tileArray[UnityEngine.Random.Range(0, gridSize.x), UnityEngine.Random.Range(0, gridSize.y)];
-        while (currentSelction.IsOccupied)
+        while (currentSelction.IsOccupied || currentSelction.type is Wall)
         {
             currentSelction = tileArray[UnityEngine.Random.Range(0, gridSize.x), UnityEngine.Random.Range(0, gridSize.y)];
         }

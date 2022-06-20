@@ -16,13 +16,15 @@ public static class Extentions
         int y_dim = arr.GetLength(1);
 
         Vector2Int newPos = index_;
-        while (newPos == index_)
+        int fix = 0;
+        while (newPos == index_ && fix < 15)
         {
             newPos.x = Random.Range(index_.x - 1, index_.x + 1);
             newPos.x = Mathf.Clamp(newPos.x, 0, x_dim);
 
             newPos.y = Random.Range(index_.y - 1, index_.y + 1);
             newPos.y = Mathf.Clamp(newPos.y, 0, y_dim);
+            fix++;
         }
 
         return newPos;

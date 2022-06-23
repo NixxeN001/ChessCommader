@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 7025850118902560181}
   - component: {fileID: 7025850118902560187}
   - component: {fileID: 7025850118847445749}
-  - component: {fileID: 7025850118847445750}
   - component: {fileID: 1044802273963457816}
+  - component: {fileID: 2023317760}
   m_Layer: 0
   m_Name: Grid Manager
   m_TagString: Untagged
@@ -83,23 +83,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c276754346c30994fac14051dd1735ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState:
-    UID: 0
-    Out: []
-    In: []
---- !u!114 &7025850118847445750
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7025850118902560182}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 438006843abe0fe42b20d786a64f0a91, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  readFromDiskOnLoad: 1
+  factory: {fileID: 0}
 --- !u!114 &1044802273963457816
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116,3 +100,19 @@ MonoBehaviour:
     UID: 0
     Out: []
     In: []
+    weight: 0
+    X: 0
+    Y: 0
+--- !u!114 &2023317760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7025850118902560182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d422daad28b5cc5419af96f37caa06ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  readFromDiskOnLoad: 1

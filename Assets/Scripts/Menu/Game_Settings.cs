@@ -9,9 +9,12 @@ public class Game_Settings : MonoBehaviour
 
     [SerializeField] Slider dif_Slider;
     [SerializeField] Toggle PvCPU_toggle;
+    [SerializeField] Toggle trainCPU_toggle;
 
     public int diff_Setting = 2;
     public bool PvCPU = false;
+
+    public bool liveTrainCPU = false;
 
     private void Awake()
     {
@@ -32,6 +35,10 @@ public class Game_Settings : MonoBehaviour
         PvCPU_toggle.onValueChanged.AddListener((arg ) =>
         {
             PvCPU = arg;
+        });
+        trainCPU_toggle.onValueChanged.AddListener((value) =>
+        {
+            liveTrainCPU = value;
         });
 
         DontDestroyOnLoad(gameObject);

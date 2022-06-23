@@ -17,6 +17,8 @@ public class AI_State_Manager : MonoBehaviour
     private const float COMMANDER_MAX_WEIGHT = 0.5f;
     const float ENEMY_MAXDIST_WEIGHT = 0.4f;
 
+    bool useML = true;
+
     private void Awake()
     {
         if (instance == null)
@@ -59,7 +61,7 @@ public class AI_State_Manager : MonoBehaviour
 
 
     /*Method that gets called recursivly that decides which direction the pawn needs to go to.
-     * its options 
+     * its options are based on up, down, left, and right
      * 
      * 
      * 
@@ -97,7 +99,6 @@ public class AI_State_Manager : MonoBehaviour
 
                 HeuristicNodes[0].weight = await getBoardWeightForUnit(HeuristicNodes[0].X - 1, HeuristicNodes[0].Y, HeuristicNodes[0].Data);
                 HeuristicNodes[0].In.Add(tempRef);
-
 
             }
             //Checks if the pawn can move right
@@ -165,11 +166,39 @@ public class AI_State_Manager : MonoBehaviour
             }
         }
 
+        /*
+         * save and read from node-based historical data, 
+         * compare to current board/node 
+         * and get historically-proven best movement choice.
+         * 
+         */
+        if (useML)
+        {
+            Node<Ai_Vision_Tile[,]> temp = new Node<Ai_Vision_Tile[,]>(map);
+            if (!NodeUtility.LastDiskRead.Contains(temp.Serialize()))
+            {
+                await temp.AppendCurrentNodeStateToDiskFileAsync();
+            }
+            else
+            {
+                try
+                {
+                    Node<Ai_Vision_Tile[,]> oldNode = JsonConvert.DeserializeObject<Node<Ai_Vision_Tile[,]>>(temp.Serialize());
+                    Ai_Choice MLChoice = await GetBestMoveForPawn(x, y, oldNode.Data);
+                    return MLChoice;
+                }
+                catch 
+                { 
+                    //ignore...
+                }
+            }
+        }
 
-        /* best choice is an int based on the weights above
+        /* best choice is an inter based on the weights above
          * if HeuristicNodes[0] is the highest weighting. it will choose Left
          * if HeuristicNodes[1] is the highest weighting. It will choose right
          * etc...
+         * it will return an Enum value based on bestChoice.
          */
         switch (bestChoice)
         {

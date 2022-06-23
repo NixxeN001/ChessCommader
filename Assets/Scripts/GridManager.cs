@@ -149,6 +149,12 @@ public class GridManager : MonoBehaviour
 [Serializable]
 public class Tile
 {
+    /*
+     * Base Class that all tiles in the game come from. this contains information
+     * such as their x and y values on the board. And information about
+     * their adjascent tiles. which is Above, Below, to the Left and to the Right
+     * of a tile.
+     */
 
     [NonSerialized] private GameObject obj;
     public TileType type;

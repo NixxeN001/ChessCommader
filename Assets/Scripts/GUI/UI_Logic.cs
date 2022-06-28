@@ -23,7 +23,7 @@ public class UI_Logic : MonoBehaviour
 
     private void UpdateTurnDisplay(byte playerID)
     {
-        turnIDtext.text = playerID.ToString();
+        turnIDtext.text = playerID == 1 ? "Blue's Turn" : "Red's Turn";
     }
 
     private void EndTurnRequest()

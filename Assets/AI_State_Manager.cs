@@ -166,7 +166,7 @@ public class AI_State_Manager : MonoBehaviour
             }
         }
 
-        /*
+        /* This is section is for TASK 3, 
          * save and read from node-based historical data, 
          * compare to current board/node 
          * and get historically-proven best movement choice.

@@ -82,7 +82,8 @@ public class Pawn : MonoBehaviour, IPawnable, IOwnable, IMoveable, IDestination
     /// <param name="destination"></param>
     public void MoveTo(Tile destination)
     {
-       // Debug.Log($"Moved {destination.WorldPos}");
+        // Debug.Log($"Moved {destination.WorldPos}");
+        GameManager.instance.HideSelectedMsg();
         transform.position = destination.WorldPos;
         
     }
@@ -111,6 +112,7 @@ public class Pawn : MonoBehaviour, IPawnable, IOwnable, IMoveable, IDestination
     {
         if (GameManager.instance.currentPlayer == Owner)
         {
+            GameManager.instance.ShowSelectedMsg();
             GameManager.instance.currentFocus = this;
         }
     }
@@ -132,12 +134,14 @@ public class Pawn : MonoBehaviour, IPawnable, IOwnable, IMoveable, IDestination
     {
         if (GameManager.instance.currentFocus == this || GameManager.instance.currentPlayer == Owner)
         {
+            GameManager.instance.HideSelectedMsg();
             return;
         }
 
         if (GameManager.instance.currentFocus.GetAvailableMoves()
             .Contains(GridManager.instance.GetTileFromCoord(transform.position)))
         {
+            GameManager.instance.HideSelectedMsg();
             GameManager.instance.currentFocus.AttacksLeft--;
             Attack();
         }

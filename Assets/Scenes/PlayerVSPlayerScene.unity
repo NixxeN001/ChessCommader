@@ -123,6 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &1774319161 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4554302670323294494, guid: 76fde3b0a950bbe4e93a9ef8d4da0e84, type: 3}
+  m_PrefabInstance: {fileID: 6060651414106011178}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &577793248979291359
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -424,6 +429,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 743505951556645989, guid: 76fde3b0a950bbe4e93a9ef8d4da0e84, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6060651414065437761, guid: 76fde3b0a950bbe4e93a9ef8d4da0e84, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -569,5 +578,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Game Manager
       objectReference: {fileID: 0}
+    - target: {fileID: 7025850118902560187, guid: ad7c717f55de3d84c88b31bba7e00a3a, type: 3}
+      propertyPath: ObjectSelectedMsg
+      value: 
+      objectReference: {fileID: 1774319161}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad7c717f55de3d84c88b31bba7e00a3a, type: 3}

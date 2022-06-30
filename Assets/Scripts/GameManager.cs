@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private byte pawnsPerPlayer;
     [SerializeField] private GameObject pawnPrefab;
     [SerializeField] private GameObject commanderPrefab;
+    [SerializeField] private GameObject ObjectSelectedMsg;
 
     private GridManager gridManager;
     public static GameManager instance;
@@ -74,11 +75,20 @@ public class GameManager : MonoBehaviour
         UI_system?.onTurnEndRequest.AddListener(EndTurn);
     }
 
+    public void ShowSelectedMsg()
+    {
+        ObjectSelectedMsg.SetActive(true);
+    }
+
+    public void HideSelectedMsg()
+    {
+        ObjectSelectedMsg.SetActive(false);
+    }
     public void Start()
     {
         gridManager = GridManager.instance;
         GridManager.instance.OnGenerated.AddListener(Init);
-
+        HideSelectedMsg();
     }
 
     private void Update()

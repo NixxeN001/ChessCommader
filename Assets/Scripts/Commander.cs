@@ -71,13 +71,11 @@ public class Commander : MonoBehaviour, IOwnable, IDestination, IMoveable, IPawn
     }
 
     public void HandleLeftClick()
-    {
-      
-
+    {      
         if (GameManager.instance.currentPlayer == Owner)
         {
+            GameManager.instance.ShowSelectedMsg();
             GameManager.instance.currentFocus = this;
-
         }
     }
 
@@ -85,12 +83,14 @@ public class Commander : MonoBehaviour, IOwnable, IDestination, IMoveable, IPawn
     {
         if (GameManager.instance.currentFocus == this || GameManager.instance.currentPlayer == Owner)
         {
+            GameManager.instance.HideSelectedMsg();
             return;
         }
 
         if (GameManager.instance.currentFocus.GetAvailableMoves()
             .Contains(GridManager.instance.GetTileFromCoord(transform.position)))
         {
+            GameManager.instance.HideSelectedMsg();
             GameManager.instance.currentFocus.AttacksLeft--;
             Attack();
         }
@@ -98,6 +98,7 @@ public class Commander : MonoBehaviour, IOwnable, IDestination, IMoveable, IPawn
 
     public void MoveTo(Tile destination)
     {
+        GameManager.instance.HideSelectedMsg();
         this.transform.position = destination.WorldPos;
     }
 
